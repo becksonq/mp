@@ -1,76 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3e394192-5282-43c7-8c64-25c2274cbc66" name="Default" comment="add all files">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/favicon.ico" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.bowerrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/test.mail_parsing.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/AppAsset.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codeception.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/commands/HelloController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/console.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/db.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/params.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/test.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/test_db.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/web.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/SiteController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mail/layouts/html.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/ContactForm.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/LoginForm.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/User.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirements.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_bootstrap.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_data/.gitkeep" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_output/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_support/AcceptanceTester.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_support/FunctionalTester.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_support/UnitTester.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance.suite.yml.example" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/AboutCest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/ContactCest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/HomeCest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/LoginCest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/_bootstrap.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/bin/yii" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/bin/yii.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional.suite.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional/ContactFormCest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional/LoginFormCest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional/_bootstrap.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit.suite.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/_bootstrap.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/models/ContactFormTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/models/LoginFormTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/models/UserTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/layouts/main.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/about.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/contact.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/error.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/functions.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/index.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/login.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/.htaccess" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/site.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/index-test.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/index.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/robots.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yii" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yii.bat" />
-    </list>
+    <list default="true" id="3e394192-5282-43c7-8c64-25c2274cbc66" name="Default" comment="" />
     <ignored path="test.mail_parsing.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -349,12 +280,20 @@
       <option name="presentableId" value="Default" />
       <updated>1501917019929</updated>
       <workItem from="1501917021340" duration="1717000" />
-      <workItem from="1501958945930" duration="78789000" />
+      <workItem from="1501958945930" duration="78958000" />
     </task>
+    <task id="LOCAL-00001" summary="add all files">
+      <created>1502737812602</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1502737812602</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80506000" />
+    <option name="totallyTimeSpent" value="80675000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
