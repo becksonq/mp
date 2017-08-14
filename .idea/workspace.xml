@@ -284,7 +284,7 @@
       <option name="presentableId" value="Default" />
       <updated>1501917019929</updated>
       <workItem from="1501917021340" duration="1717000" />
-      <workItem from="1501958945930" duration="81710000" />
+      <workItem from="1501958945930" duration="81946000" />
     </task>
     <task id="LOCAL-00001" summary="add all files">
       <created>1502737812602</created>
@@ -300,11 +300,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502738631030</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add all files">
+      <created>1502740740873</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1502740740873</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83427000" />
+    <option name="totallyTimeSpent" value="83663000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
