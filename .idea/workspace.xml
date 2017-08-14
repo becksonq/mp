@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3e394192-5282-43c7-8c64-25c2274cbc66" name="Default" comment="" />
+    <list default="true" id="3e394192-5282-43c7-8c64-25c2274cbc66" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="test.mail_parsing.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -61,6 +63,8 @@
     </commandsHistory>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_CHANGES_POLICY" value="SHELVE" />
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -71,8 +75,8 @@
       <list>
         <option value="$PROJECT_DIR$/web/.htaccess" />
         <option value="$PROJECT_DIR$/views/site/functions.php" />
-        <option value="$PROJECT_DIR$/views/site/index.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/views/site/index.php" />
       </list>
     </option>
   </component>
@@ -280,7 +284,7 @@
       <option name="presentableId" value="Default" />
       <updated>1501917019929</updated>
       <workItem from="1501917021340" duration="1717000" />
-      <workItem from="1501958945930" duration="78958000" />
+      <workItem from="1501958945930" duration="79615000" />
     </task>
     <task id="LOCAL-00001" summary="add all files">
       <created>1502737812602</created>
@@ -293,7 +297,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80675000" />
+    <option name="totallyTimeSpent" value="81332000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
