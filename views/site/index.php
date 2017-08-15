@@ -87,97 +87,14 @@ else {
 		// Тело письма
 		$msg_structure = imap_fetchstructure( $connection, $i );
 
-		//=============================================================================
-		/**
-		 * Новая реализация http://php.net/manual/ru/function.imap-fetchbody.php
-		 */
-
-		$struckture = imap_fetchstructure( $connection, $i );
-		$message = imap_fetchbody( $connection, $i, 1 );
-//		$name = $struckture->parts[1]->parameters[0]->value;
-		$type = $struckture->parts[1]->type;
-		if ( $type == 0 ) {
-			$type = "text/";
-		}
-		elseif ( $type == 1 ) {
-			$type = "multipart/";
-		}
-		elseif ( $type == 2 ) {
-			$type = "message/";
-		}
-		elseif ( $type == 3 ) {
-			$type = "application/";
-		}
-		elseif ( $type == 4 ) {
-			$type = "audio/";
-		}
-		elseif ( $type == 5 ) {
-			$type = "image/";
-		}
-		elseif ( $type == 6 ) {
-			$type = "video";
-		}
-		elseif ( $type == 7 ) {
-			$type = "other/";
-		}
-		$type .= $struckture->parts[1]->subtype;
-
-
-		//=============================================================================
-
-		//==
-		$contentParts = count($msg_structure->parts); //print $contentParts; exit;
-
-		//==
-
-
-//		print '<pre>';
-//		print_r( $msg_structure );
-//		print '</pre>';
-//		exit;
-
-		$msg_body = imap_fetchbody( $connection, $i, 1 );
-
-		//=============================================================================
-//		$body = "";
-//
-//		$recursive_data = recursive_search( $msg_structure );
-//
-//		if ( $recursive_data["encoding"] == 0 || $recursive_data["encoding"] == 1 ) {
-//
-//			$body = $msg_body;
-//		}
-//
-//		if ( $recursive_data["encoding"] == 4 ) {
-//
-//			$body = structure_encoding( $recursive_data["encoding"], $msg_body );
-//		}
-//
-//		if ( $recursive_data["encoding"] == 3 ) {
-//
-//			$body = structure_encoding( $recursive_data["encoding"], $msg_body );
-//		}
-//
-//		if ( $recursive_data["encoding"] == 2 ) {
-//
-//			$body = structure_encoding( $recursive_data["encoding"], $msg_body );
-//		}
-//
-//		if ( !check_utf8( $recursive_data["charset"] ) ) {
-//
-//			$body = convert_to_utf8( $recursive_data["charset"], $msg_body );
-//		}
-
-		//print $body . "<br>";
-//		$mails_data[$i]["body"] = base64_encode( $body );
-		//=============================================================================
-
 		// Вложенные файлы
 		// Если есть вложенные файлы...
 		if ( isset( $msg_structure->parts ) ) {
 
+			$parts = $msg_structure->parts;
+
 			// Количество вложенных файлов
-			$count_parts = count( $msg_structure->parts );
+			$count_parts = count( $parts );
 
 //			for ( $h = 0; $h < $count_parts; $h++ ) {
 //
@@ -207,39 +124,43 @@ else {
 
 			for ( $j = 1, $f = 2; $j < $count_parts; $j++, $f++ ) {
 
-//				print '<pre>';
-//				print_r( $msg_structure[$j]->type );
-////				print_r( $msg_structure->parts );
-//				print '</pre>'; //exit;
+				if ( in_array( $parts[$j]->subtype, $mail_filetypes ) ) {
 
+					foreach ( $parts[$j]->parts as $p ){
+//						if ( in_array( $p->subtype, ['HTML'] ) ) {
 
-//
-//				if ( $msg_structure->parts[$j]->type == 0 ) {
-//					foreach ( $msg_structure->parts[$j]->parts as $a ) {
-						print '<pre>';
-//						print 'a';
-						print_r( $msg_structure->parts[$j]->subtype );
-						print '</pre>'; //exit;
-//					}
-//				}
+//							print '<pre>';
+//						print $p->parts[0]->encoding;
+//							print_r( $p );
+////						print( get_imap_title( $p->parameters[0]->value ) );
+//							print '</pre>';
+//						}
 
+//						$file = structure_encoding(	$p->encoding, imap_fetchbody( $connection, $i, $f ));
 
-				if ( in_array( $msg_structure->parts[$j]->subtype, $mail_filetypes ) ) {
+//						file_put_contents( "tmp/" . iconv( "utf-8", "cp1251", $parts[$j]->bytes ),	$file );
 
+						foreach ( $p as $pt ) {
+							if( is_array( $pt ) ) {
+								if( property_exists( $pt[0], 'encoding') ){
+									print $pt[0]->parameters[0]->value;
+								}
+//								if ( in_array( $pt[0]->subtype, ['PLANE'] ) ) {
+//									print '<pre>';
+//									print_r( $pt[0] );
+//									print '</pre>';
+//								}
+							}
+						}
 
-					for ( $t = 0; $t<count( $msg_structure->parts[$j] ); $t++ ) {
-//						print '<pre>';
-//						print $msg_structure->parts[$j]->subtype;
-//						print '</pre>'; //exit;
 					}
 
 
-
 					// RFC822
-					$mails_data[$i]["attachs"][$j]["type"] = $msg_structure->parts[$j]->subtype; //print $mails_data[$i]["attachs"][$j]["type"] . "<br>";
-					$mails_data[$i]["attachs"][$j]["size"] = $msg_structure->parts[$j]->bytes;
+					$mails_data[$i]["attachs"][$j]["type"] = $parts[$j]->subtype; //print $mails_data[$i]["attachs"][$j]["type"] . "<br>";
+					$mails_data[$i]["attachs"][$j]["size"] = $parts[$j]->bytes;
 
-					$parameters = $msg_structure->parts[$j]->parameters;
+					$parameters = $parts[$j]->parameters;
 
 //					print_r($parameters);
 //					if (property_exists($parameters, 'attribute')) {
@@ -257,9 +178,9 @@ else {
 
 //					$mails_data[$i]["attachs"][$j]["name"] = get_imap_title( $msg_structure->parts[$j]->parameters[0]->value );
 
-					$mails_data[$i]["attachs"][$j]["file"] = structure_encoding(
-							$msg_structure->parts[$j]->encoding, imap_fetchbody( $connection, $i, $f )
-					);
+//					$mails_data[$i]["attachs"][$j]["file"] = structure_encoding(
+//							$msg_structure->parts[$j]->encoding, imap_fetchbody( $connection, $i, $f )
+//					);
 
 //					print '<pre>';
 //					print $mails_data[$i]["attachs"][$j]["file"];
