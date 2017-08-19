@@ -177,7 +177,7 @@ class m170817_191823_create_auth_assignment_table extends Migration
         /*
          * */
         $this->addPrimaryKey( 'item_name_pk', 'auth_assignment', [ 'item_name', 'user_id' ] );
-        $this->addForeignKey( 'fk_auth_assignment', 'auth_assignment', 'item_name', 'auth_item', 'name', 'CASCADE' );
+        $this->addForeignKey( 'fk_auth_assignment', 'auth_assignment', 'item_name', 'auth_item', 'name' );
 
         $this->addForeignKey('fk_auth_item_child_1', 'auth_item_child', 'parent', 'auth_item', 'name' );
         $this->addForeignKey( 'fk_auth_item_child_2', 'auth_item_child', 'child', 'auth_item', 'name' );

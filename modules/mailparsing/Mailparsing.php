@@ -3,19 +3,22 @@
 namespace app\modules\mailparsing;
 
 /**
- * Created by PhpStorm.
- * User: Администратор_
- * Date: 17.08.2017
- * Time: 19:57
+ * mailparsing module definition class
  */
 class Mailparsing extends \yii\base\Module
 {
+    /**
+     * @inheritdoc
+     */
+    public $controllerNamespace = 'app\modules\mailparsing\controllers';
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
 
-        $this->params['foo'] = 'bar';
-        // ... остальной инициализирующий код ...
+        // custom initialization code goes here
     }
 }

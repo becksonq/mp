@@ -107,7 +107,7 @@ else {
 						$file_name = md5( time() ) . ".html";
 						$file = structure_encoding( $parts[$j]->encoding, imap_fetchbody( $connection, $i, $f ) );
 
-						file_put_contents( "tmp/" . $file_name, $file );
+//						file_put_contents( "tmp/" . $file_name, $file );
 					}
 
 //					foreach ( $parts[ $j ]->parts as $p ) {
