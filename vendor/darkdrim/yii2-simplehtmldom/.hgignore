@@ -1,0 +1,8 @@
+syntax: glob
+cmd.bat
+
+www/web/assets/*
+www/web/assets/
+!www/web/assets/.gitignore
+!www/web/assets/.hgkeep
+www/runtime/*

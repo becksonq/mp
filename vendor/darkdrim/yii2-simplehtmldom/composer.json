@@ -1,0 +1,34 @@
+{
+  "name": "darkdrim/yii2-simplehtmldom",
+  "description": "Simple HTML Dom parser for Yii2 + cURL",
+  "homepage": "https://bitbucket.org/DarkDrim/yii2-simplehtmldom",
+  "type": "yii2-extension",
+  "keywords": [
+    "simplehtmldom",
+    "dom",
+    "parse",
+    "parser",
+    "yii2",
+    "yii",
+    "extension",
+	"simple_html_dom",
+	"curl"
+  ],
+  "license": [
+    "MIT"
+  ],
+  "authors": [
+    {
+      "name": "darkdrim",
+      "email": "drimd@ukr.net"
+    }
+  ],
+  "require": {
+      "yiisoft/yii2": "*"
+  },
+  "autoload": {
+	  "psr-4": {
+		  "darkdrim\\simplehtmldom\\": ""
+      }
+   }
+}

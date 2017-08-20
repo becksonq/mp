@@ -136,7 +136,7 @@ class BaseFormatConverter
             'yyyy' => 'Y',  // 4digit year e.g. 2014
             'yy' => 'y',    // 2digit year number eg. 14
             'u' => '',      // extended year e.g. 4601
-            'U' => '',      // cyclic year name, as in Chinese lunar event-calendar
+            'U' => '',      // cyclic year name, as in Chinese lunar calendar
             'r' => '',        // related Gregorian year e.g. 1996
             'Q' => '',      // number of quarter
             'QQ' => '',     // number of quarter '02'
@@ -346,7 +346,7 @@ class BaseFormatConverter
             'yyyy' => 'yy', // 4digit year e.g. 2014
             'yy' => 'y',    // 2digit year number eg. 14
             'u' => '',      // extended year e.g. 4601
-            'U' => '',      // cyclic year name, as in Chinese lunar event-calendar
+            'U' => '',      // cyclic year name, as in Chinese lunar calendar
             'r' => '',      // related Gregorian year e.g. 1996
             'Q' => '',      // number of quarter
             'QQ' => '',     // number of quarter '02'

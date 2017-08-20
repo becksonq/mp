@@ -24,14 +24,14 @@ class GetMail
     public $parts;
     public $mails_data = [ ]; // Массив для вложений
 
-    public function getMail(){
+    /*public function getMail(){
 
 
         $this->mm();
 
-    }
+    }*/
 
-    public function mm(){
+    public function getMessages(){
 
         // Получаем количество писем
         $this->getNumMessage();
@@ -74,9 +74,9 @@ class GetMail
 
                 // Количество вложенных файлов
 //			    $count_parts = count( $this->parts ); //print $count_parts; exit;
-                $count_parts = 5;
+                $count_parts = 2;
 
-                for ( $j = 0, $f = 2; $j<$count_parts; $j++, $f++ ) {
+                for ( $j = 1, $f = 2; $j<$count_parts; $j++, $f++ ) {
 
                     if ( in_array( $this->parts[ $j ]->subtype, $this->mail_filetypes ) ) {
 
@@ -84,21 +84,23 @@ class GetMail
                             $this->msg_structure->parts[$j]->encoding, imap_fetchbody($this->connection, $i, $f)
                         );
 
-//                        if ( property_exists( $this->parts[$j], 'encoding' ) ) {
-////
-//                            $file_name = md5( time() ) . ".html";
-//                            $file = $this->structureEncoding( $this->parts[$j]->encoding, imap_fetchbody( $this->connection, $i, $f ) );
+                        /*if ( property_exists( $this->parts[$j], 'encoding' ) ) {
 //
+                            $file_name = md5( time() ) . ".html";
+                            $file = $this->structureEncoding( $this->parts[$j]->encoding, imap_fetchbody( $this->connection, $i, $f ) );
+
 //                            $this->mails_data[$i]['part'] = $file;
-//
-////						file_put_contents( "tmp/" . $file_name, $file );
-//                        }
+
+						file_put_contents( "tmp/" . $file_name, $file );
+                        }*/
                     }
                 }
             }
 
 
         }
+
+        $this->stopConnection();
         return $this->mails_data;
     }
 
@@ -213,7 +215,6 @@ class GetMail
      */
     public function stopConnection()
     {
-
         imap_close( $this->connection );
         return;
     }
