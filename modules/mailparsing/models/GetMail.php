@@ -73,8 +73,8 @@ class GetMail
                 $this->parts = $this->msg_structure->parts;
 
                 // Количество вложенных файлов
-//			    $count_parts = count( $this->parts ); //print $count_parts; exit;
-                $count_parts = 2;
+			    $count_parts = count( $this->parts ); //print $count_parts; exit;
+//                $count_parts = 2;
 
                 for ( $j = 1, $f = 2; $j<$count_parts; $j++, $f++ ) {
 

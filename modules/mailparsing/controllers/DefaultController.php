@@ -45,45 +45,36 @@ class DefaultController extends Controller
 
     public function actionGetParts()
     {
-
-        $html_array = [ ];
-
         $session = Yii::$app->session;
         $session->open();
 
-        $parsing = new Parsing();
+        $parsing = new Parsing(); print count($session['messages']);
         $parsing->getStrHtml( $session['messages'] );
 
-
-        foreach ( $parsing as $key => $value ) {
-            foreach ( $value as $keys => $k ) {
-                print $k['html'];
-                $html_array[] = $k['html']; // Собираем html в массив
-            }
-        }
-        unset( $value );
-        unset( $parsing );
+        $html_array = $parsing->getHtmlArray( $parsing );
+        unset( $parsing ); // Удаляем экземляр
 
         if ( count( $html_array ) > 0 ) {
             $detales = new Parsing();
             $detales->getDetales( $html_array );
         }
-//
-        foreach ( $detales as $value ) {
-            foreach ( $value as $val ) {
-                foreach ( $val['user-name-link'] as $key => $v ) {
-                    $users[] = $v; // Собираем юзеров в массив
-//                    print $key . ':' . $v . '<br>';
-                }
-            }
-            unset( $val );
-        }
-        unset( $value );
 
-        $users = array_unique($users); echo count($users);
-        foreach ($users as $val){
-            print $val . '<br>';
+        // Получаем массив уникальных юзеров
+        if ( isset( $detales ) ) {
+            $users = $detales->getUsersArray( $detales );
+            $u = $detales->getUsersFromTable( $users);
         }
+        
+        
+        
+
+
+
+        print '<pre>';
+        print_r($users);
+        print_r( $u );
+        print '</pre>';
+
 
 //        exit;
 

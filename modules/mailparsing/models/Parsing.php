@@ -10,6 +10,7 @@ namespace app\modules\mailparsing\models;
 use Tests\Behat\Gherkin\ParserExceptionsTest;
 use yii;
 use darkdrim\simplehtmldom\SimpleHTMLDom as SHD;
+use app\models\tables\Profile;
 
 class Parsing
 {
@@ -17,7 +18,81 @@ class Parsing
     public $mail_array = [ ];
     public $el = [ ];
 
+    public function getUsersFromTable( $new_users )
+    {
+        $names = [ ];
 
+        // Получаем данные из таблицы
+        $u = Profile::find()
+            ->asArray()
+            ->where( [ 'not', [ 'firstname' => null ] ] )
+            ->all();
+
+        // Получаем имя/фамилию из данных
+        foreach ( $u as $v ) {
+            $names[] = $v['lastname'] . $v['firstname'];
+        }
+
+        // Удаляем пробелы из строки
+        foreach ( $new_users as &$u ) {
+            $u = str_replace( " ", "", $u );
+        }
+
+        // Сравниваем юзеров для нахождения новых
+        $res = array_diff( $new_users, $names );
+
+        return $res;
+    }
+
+    /**
+     * Получаем массив страниц html
+     * @param $object
+     * @return array
+     */
+    public function getHtmlArray( $object )
+    {
+        $html_array = [ ];
+        foreach ( $object as $key => $value ) {
+            foreach ( $value as $keys => $k ) {
+                print $k['html'];
+                $html_array[] = $k['html']; // Собираем html в массив
+            }
+        }
+        unset( $value );
+
+        return $html_array;
+    }
+
+    /**
+     * Получаем массив уникальных юзеров
+     * @param $object
+     * @return array
+     */
+    public function getUsersArray( $object )
+    {
+        $users = [ ];
+
+        foreach ( $object as $value ) {
+            foreach ( $value as $val ) {
+                foreach ( $val['user-name-link'] as $key => $v ) {
+                    $users[] = $v; // Собираем юзеров в массив
+//                    print $key . ':' . $v . '<br>';
+                }
+            }
+            unset( $val );
+        }
+        unset( $value );
+
+        $users = array_unique( $users );
+
+        return $users;
+    }
+
+    /**
+     * Получаем детали
+     * @param $object
+     * @return array
+     */
     public function getDetales( $object )
     {
         $el = [ ];
@@ -46,6 +121,11 @@ class Parsing
         return $this->el;
     }
 
+    /**
+     * Разбираем вложение
+     * @param $object
+     * @return array
+     */
     public function getStrHtml( $object )
     {
         $mail_array = [ ];

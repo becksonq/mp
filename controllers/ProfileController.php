@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\mailparsing\controllers;
+namespace app\controllers;
 
 use Yii;
-use app\modules\mailparsing\models\Profile;
-use app\modules\mailparsing\models\ProfileSearch;
+use app\models\tables\Profile;
+use app\models\tables\ProfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

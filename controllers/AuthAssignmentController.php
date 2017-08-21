@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\mailparsing\controllers;
+namespace app\controllers;
 
 use Yii;
-use app\modules\mailparsing\models\AuthAssignment;
-use app\modules\mailparsing\models\AuthAssignmentSearch;
+use app\models\tables\AuthAssignment;
+use app\models\tables\AuthAssignmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

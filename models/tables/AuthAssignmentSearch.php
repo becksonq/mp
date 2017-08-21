@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\mailparsing\models;
+namespace app\models\tables;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\mailparsing\models\AuthAssignment;
+use app\models\tables\AuthAssignment;
 
 /**
  * AuthAssignmentSearch represents the model behind the search form about `app\modules\mailparsing\models\AuthAssignment`.

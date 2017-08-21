@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\mailparsing\models;
+namespace app\models\tables;
 
 use Yii;
 

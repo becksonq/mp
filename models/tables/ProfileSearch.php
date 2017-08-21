@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\mailparsing\models;
+namespace app\models\tables;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\mailparsing\models\Profile;
+use app\models\tables\Profile;
 
 /**
  * ProfileSearch represents the model behind the search form about `app\modules\mailparsing\models\Profile`.
