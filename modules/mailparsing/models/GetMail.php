@@ -42,24 +42,24 @@ class GetMail
              * Шапка письма
              * Можно использовать imap_header
              * */
-            $this->message_header = imap_headerinfo( $this->connection, $i );
+            $message_header = imap_headerinfo( $this->connection, $i );
 
-            $this->mails_data[$i]['id'] = $this->message_header->message_id;
-            $this->mails_data[$i]["time"] = time( $this->message_header->MailDate );
-            $this->mails_data[$i]["date"] = $this->message_header->MailDate;
+            $mails_data[$i]['id'] = $message_header->message_id;
+            $mails_data[$i]["time"] = time( $message_header->MailDate );
+            $mails_data[$i]["date"] = $message_header->MailDate;
 
-            foreach ( $this->message_header->to as $data ) {
+            foreach ( $message_header->to as $data ) {
                 // Кому
-                $this->mails_data[$i]["to"] = $data->mailbox . "@" . $data->host; //print $mails_data[$i]["to"] . "<br>";
+                $mails_data[$i]["to"] = $data->mailbox . "@" . $data->host; //print $mails_data[$i]["to"] . "<br>";
             }
 
-            foreach ( $this->message_header->from as $data ) {
+            foreach ( $message_header->from as $data ) {
                 // От кого
-                $this->mails_data[$i]["from"] = $data->mailbox . "@" . $data->host; //print $mails_data[$i]["from"] . "<br>";
+                $mails_data[$i]["from"] = $data->mailbox . "@" . $data->host; //print $mails_data[$i]["from"] . "<br>";
             }
 
-            if ( property_exists( $this->message_header, 'subject' ) ) {
-                $this->mails_data[$i]["title"] = $this->getImapTitle( $this->message_header->subject ); //print $mails_data[$i]["title"]     . "<br>";
+            if ( property_exists( $message_header, 'subject' ) ) {
+                $mails_data[$i]["title"] = $this->getImapTitle( $message_header->subject ); //print $mails_data[$i]["title"]     . "<br>";
             }
 
             // Тело письма
@@ -76,11 +76,12 @@ class GetMail
 			    $count_parts = count( $this->parts ); //print $count_parts; exit;
 //                $count_parts = 2;
 
+                //======================================================================================================
                 for ( $j = 1, $f = 2; $j<$count_parts; $j++, $f++ ) {
 
                     if ( in_array( $this->parts[ $j ]->subtype, $this->mail_filetypes ) ) {
 
-                        $this->mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
+                        $mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
                             $this->msg_structure->parts[$j]->encoding, imap_fetchbody($this->connection, $i, $f)
                         );
 
@@ -89,10 +90,17 @@ class GetMail
                             $file_name = md5( time() ) . ".html";
                             $file = $this->structureEncoding( $this->parts[$j]->encoding, imap_fetchbody( $this->connection, $i, $f ) );
 
-//                            $this->mails_data[$i]['part'] = $file;
+//                            $mails_data[$i]['part'] = $file;
 
 						file_put_contents( "tmp/" . $file_name, $file );
                         }*/
+                    }
+                }
+                //======================================================================================================
+                for ($j = 0; $j<$count_parts; $j++){
+                    if ( in_array( $this->parts[ $j ]->subtype, $this->mail_filetypes ) ) {
+                        $file = $this->structureEncoding($this->msg_structure->parts[$j]->encoding, imap_fetchbody($this->connection, $i, $j)
+                        );
                     }
                 }
             }
@@ -101,7 +109,7 @@ class GetMail
         }
 
         $this->stopConnection();
-        return $this->mails_data;
+        return $mails_data;
     }
 
     private function structureEncoding( $encoding, $msg_body )
