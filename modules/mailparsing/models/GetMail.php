@@ -64,50 +64,53 @@ class GetMail
             //==========================================================================================================
             // Вложенные файлы
             // Если есть вложенные файлы...
+//            if ( isset( $msg_structure->parts ) ) {
+//
+//                //======================================================================================================
+//                for ( $j = 1, $f = 2; $j < count( $msg_structure->parts ); $j++, $f++ ) {
+//
+//                    if ( in_array( $msg_structure->parts[$j]->subtype, $this->mail_filetypes ) ) {
+//
+//                        $mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
+//                            $msg_structure->parts[$j]->encoding, imap_fetchbody( $connection, $i, $f )
+//                        );
+////                        H::h( $j, 0 );
+//
+//                        /*if ( property_exists( $parts[$j], 'encoding' ) ) {
+////
+//                            $file_name = md5( time() ) . ".html";
+//                            $file = $this->structureEncoding( $parts[$j]->encoding, imap_fetchbody( $connection, $i, $f ) );
+//
+////                            $mails_data[$i]['part'] = $file;
+//
+//						file_put_contents( "tmp/" . $file_name, $file );
+//                        }*/
+//                    }
+//                }
+//                //======================================================================================================
+//            }
+
+
             if ( isset( $msg_structure->parts ) ) {
 
-                //======================================================================================================
+
                 for ( $j = 1, $f = 2; $j < count( $msg_structure->parts ); $j++, $f++ ) {
 
                     if ( in_array( $msg_structure->parts[$j]->subtype, $this->mail_filetypes ) ) {
 
-                        $mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
-                            $msg_structure->parts[$j]->encoding, imap_fetchbody( $connection, $i, $f )
-                        );
-//                        H::h( $j, 0 );
+                        $file = $this->structureEncoding( $msg_structure->parts[$j]->encoding, imap_fetchbody( $connection, $i, $f ) );
 
-                        /*if ( property_exists( $parts[$j], 'encoding' ) ) {
-//
-                            $file_name = md5( time() ) . ".html";
-                            $file = $this->structureEncoding( $parts[$j]->encoding, imap_fetchbody( $connection, $i, $f ) );
-
-//                            $mails_data[$i]['part'] = $file;
-
-						file_put_contents( "tmp/" . $file_name, $file );
-                        }*/
-                    }
-                }
-                //======================================================================================================
-            }
-
-
-            if(isset($msg_structure->parts)){
-
-                for($j = 1, $f = 2; $j < count($msg_structure->parts); $j++, $f++){
-
-                    if(in_array($msg_structure->parts[$j]->subtype, $this->mail_filetypes)){
-
-                        $mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
-                            $msg_structure->parts[$j]->encoding,
-                            imap_fetchbody($connection, $i, $f)
-                        );
+//                        H::h($file,0);
+                        $mails_data[$i]["attachs"][$j]["file"] = $file;
+//                        $mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
+//                            $msg_structure->parts[$j]->encoding,
+//                            imap_fetchbody( $connection, $i, $f )
+//                        );
 
 //                        file_put_contents("tmp/".iconv("utf-8", "cp1251", $mails_data[$i]["attachs"][$j]["name"]), $mails_data[$i]["attachs"][$j]["file"]);
                     }
                 }
             }
-
-
 
 
         }
