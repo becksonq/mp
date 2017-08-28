@@ -51,12 +51,18 @@ class Parsing
      */
     public function getHtmlArray( $object )
     {
+//        echo count( $object );
         $html_array = [ ];
         foreach ( $object as $key => $value ) {
-            foreach ( $value as $keys => $k ) {
+
+//            print_r($value);
+
+            /*foreach ( $value as $keys => $k ) {
+
+
                 print $k['html'];
                 $html_array[] = $k['html']; // Собираем html в массив
-            }
+            }*/
         }
         unset( $value );
 
@@ -128,23 +134,30 @@ class Parsing
      */
     public function getStrHtml( $object )
     {
+//        print_r ($object); exit;
         $mail_array = [ ];
 
         foreach ( $object as $key => $val ) {
+            // $val --> Письма
 
             $mail_array[$key]['id'] = $val['id'];
             $mail_array[$key]['date'] = $val['date'];
             $mail_array[$key]['time'] = $val['time'];
 
             $file = $val['attachs'][1]['file'];
+//            $a[] = $file;
+            H::h( $val['attachs'][1] );
 
             $file = mb_strstr( $file, '<!' );
 
             $html = SHD::str_get_html( $file );
+
             $mail_array[$key]['html'] = $html->save();
 
         }
         unset( $val );
+
+//        H::h(count($a), 0);
 
         $this->mail_array = $mail_array;
         return $this->mail_array;

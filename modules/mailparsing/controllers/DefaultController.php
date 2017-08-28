@@ -48,7 +48,7 @@ class DefaultController extends Controller
         $session = Yii::$app->session;
         $session->open();
 
-        $parsing = new Parsing(); print count($session['messages']);
+        $parsing = new Parsing(); //print count($session['messages']);
         $parsing->getStrHtml( $session['messages'] );
 
         $html_array = $parsing->getHtmlArray( $parsing );
