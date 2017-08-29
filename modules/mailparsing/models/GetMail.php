@@ -64,62 +64,79 @@ class GetMail
             //==========================================================================================================
             // Вложенные файлы
             // Если есть вложенные файлы...
-//            if ( isset( $msg_structure->parts ) ) {
-//
-//                //======================================================================================================
-//                for ( $j = 1, $f = 2; $j < count( $msg_structure->parts ); $j++, $f++ ) {
-//
-//                    if ( in_array( $msg_structure->parts[$j]->subtype, $this->mail_filetypes ) ) {
-//
-//                        $mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
-//                            $msg_structure->parts[$j]->encoding, imap_fetchbody( $connection, $i, $f )
-//                        );
-////                        H::h( $j, 0 );
-//
-//                        /*if ( property_exists( $parts[$j], 'encoding' ) ) {
-////
-//                            $file_name = md5( time() ) . ".html";
-//                            $file = $this->structureEncoding( $parts[$j]->encoding, imap_fetchbody( $connection, $i, $f ) );
-//
-////                            $mails_data[$i]['part'] = $file;
-//
-//						file_put_contents( "tmp/" . $file_name, $file );
-//                        }*/
-//                    }
-//                }
-//                //======================================================================================================
-//            }
-
-
             if ( isset( $msg_structure->parts ) ) {
 
+                $prefix = "";
+                $part_array = [ ];
 
-                for ( $j = 1, $f = 2; $j < count( $msg_structure->parts ); $j++, $f++ ) {
+                if ( count( $msg_structure->parts ) > 0 ) {    // There some sub parts
+                    foreach ( $msg_structure->parts as $count => $part ) {
+                        $this->addPartToArray( $part, $prefix . ( $count + 1 ), $part_array );
+                    }
+                }
 
-                    if ( in_array( $msg_structure->parts[$j]->subtype, $this->mail_filetypes ) ) {
+                foreach ( $part_array as $key => $value ) {
 
-                        $file = $this->structureEncoding( $msg_structure->parts[$j]->encoding, imap_fetchbody( $connection, $i, $f ) );
+                    if ( stripos( $value['part_number'], '.' ) ) {
+                        $file = trim( $this->structureEncoding( $value['part_object'],
+                            imap_fetchbody( $connection, $i, $value['part_number'] ) ) );
 
-//                        H::h($file,0);
-                        $mails_data[$i]["attachs"][$j]["file"] = $file;
-//                        $mails_data[$i]["attachs"][$j]["file"] = $this->structureEncoding(
-//                            $msg_structure->parts[$j]->encoding,
-//                            imap_fetchbody( $connection, $i, $f )
-//                        );
-
-//                        file_put_contents("tmp/".iconv("utf-8", "cp1251", $mails_data[$i]["attachs"][$j]["name"]), $mails_data[$i]["attachs"][$j]["file"]);
+                        $mails_data[$i]["attachs"][$key]["file"] = $file;
                     }
                 }
             }
-
-
         }
 
-//        print_r($mails_data); exit;
 
         $this->stopConnection( $connection );
         return $mails_data;
     }
+
+    public function addPartToArray( $obj, $partno, & $part_array )
+    {
+        $prefix = '';
+
+        $part_array[] = [ 'part_number' => $partno, 'part_object' => $obj ];
+
+//        H::h( $partno, 0);
+
+        if ( $obj->type == 2 ) { // Check to see if the part is an attached email message, as in the RFC-822 type
+
+//            H::h( $partno, 0 );
+
+            if ( count( $obj->parts ) > 0 ) {    // Check to see if the email has parts
+                foreach ( $obj->parts as $count => $part ) {
+
+                    // Iterate here again to compensate for the broken way that imap_fetchbody() handles attachments
+                    if ( count( $part->parts ) > 0 ) {
+                        foreach ( $part->parts as $count2 => $part2 ) {
+//                            H::h( $part2 );
+//                            H::h(  "." . ( $count2 + 1 ), 0 );
+
+                            if ( ( $count2 + 1 ) == 2 ) {
+                                $this->addPartToArray( $part2, $partno . "." . ( $count2 + 1 ), $part_array );
+                            }
+
+                        }
+                    }
+//                    else {    // Attached email does not have a seperate mime attachment for text
+//                        $part_array[] = array( 'part_number' => $partno . '.' . ( $count + 1 ), 'part_object' => $obj );
+//                    }
+                }
+            }
+//            else {    // Not sure if this is possible
+//                $part_array[] = [ 'part_number' => $prefix . '.1', 'part_object' => $obj ];
+//            }
+        }
+//        else {    // If there are more sub-parts, expand them out.
+//            if ( count( $obj->parts ) > 0 ) {
+//                foreach ( $obj->parts as $count => $p ) {
+//                    $this->addPartToArray( $p, $partno . "." . ( $count + 1 ), $part_array );
+//                }
+//            }
+//        }
+    }
+
 
     private function structureEncoding( $encoding, $msg_body )
     {

@@ -49,9 +49,9 @@ class DefaultController extends Controller
         $session->open();
 
         $parsing = new Parsing(); //print count($session['messages']);
-        $parsing->getStrHtml( $session['messages'] );
+        $parts = $parsing->getStrHtml( $session['messages'] );
 
-        $html_array = $parsing->getHtmlArray( $parsing );
+        $html_array = $parsing->getHtmlArray( $parts );
         unset( $parsing ); // Удаляем экземляр
 
         if ( count( $html_array ) > 0 ) {

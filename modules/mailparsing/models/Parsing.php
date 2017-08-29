@@ -51,21 +51,29 @@ class Parsing
      */
     public function getHtmlArray( $object )
     {
-//        echo count( $object );
+//        H::h( gettype( $object ), 0 );
+
         $html_array = [ ];
+
         foreach ( $object as $key => $value ) {
 
-//            print_r($value);
-
-            /*foreach ( $value as $keys => $k ) {
+//            H::h( $key, 0 );
 
 
-                print $k['html'];
-                $html_array[] = $k['html']; // Собираем html в массив
-            }*/
+            foreach ( $value['file'] as $key1 => $k ) {
+
+                H::h( $k, 0 ); //--> id date time html
+
+//                H::h(  $k['html'] , 0 );
+
+//                H::h( gettype( $k[3] ), 0 );
+
+
+//                $html_array[] = $k['html']; // Собираем html в массив
+            }
         }
         unset( $value );
-
+        exit;
         return $html_array;
     }
 
@@ -144,23 +152,43 @@ class Parsing
             $mail_array[$key]['date'] = $val['date'];
             $mail_array[$key]['time'] = $val['time'];
 
-            $file = $val['attachs'][1]['file'];
-//            $a[] = $file;
-            H::h( $val['attachs'][1] );
+//            H::h( $key, 0 );
 
-            $file = mb_strstr( $file, '<!' );
+            foreach ( $val['attachs'] as $key1 => $part ) {
+//                H::h( $part );
 
-            $html = SHD::str_get_html( $file );
+                //$file = mb_strstr( $part, '<!' );
 
-            $mail_array[$key]['html'] = $html->save();
+                foreach ( $part as $key2 => $file ) {
+
+//                    $file = mb_strstr( $file, 'quoted-printable' );
+//                    $file = mb_strstr( $file, ': quoted-printable' );
+//                    $file = str_replace( ': quoted-printable', '', $file );
+                    $html = SHD::str_get_html( $file );
+
+                    H::h( $file, 0 );
+
+                    $mail_array[$key][$key2]['html'] = $html;
+//                    $mail_array[$key]['html'] = $html->save();
+
+                }
+
+            }
+//
+//            $file = $val['attachs'][1]['file'];
+
+
+//
+//
+//            $mail_array[$key]['html'] = $html->save();
 
         }
         unset( $val );
 
-//        H::h(count($a), 0);
 
-        $this->mail_array = $mail_array;
-        return $this->mail_array;
+        exit;
+//        $this->mail_array = $mail_array;
+        return $mail_array;
     }
 
 
