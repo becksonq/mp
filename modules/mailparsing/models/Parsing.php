@@ -51,22 +51,45 @@ class Parsing
      */
     public function getHtmlArray( $object )
     {
-//        H::h( gettype( $object ), 0 );
+        // Получаем массив $session['messages']...
+//        H::h( gettype( $object ), 0 ); // $object -> array
 
         $html_array = [ ];
 
         foreach ( $object as $key => $value ) {
-
+            // Перебираем письма
+            // $value --> письмо
 //            H::h( $key, 0 );
 
+//            H::h(count($value['attachs']), 0);
 
-            foreach ( $value['file'] as $key1 => $k ) {
+            foreach ( $value['attachs'] as $key1 => $file ) {
 
-                H::h( $k, 0 ); //--> id date time html
+//                H::h( $file['file'] );
 
-//                H::h(  $k['html'] , 0 );
+                $html = SHD::str_get_html( $file['file'] );
 
-//                H::h( gettype( $k[3] ), 0 );
+                foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $key2 => $item ) {
+//                    H::h($item); exit;
+//                    $item['title']     = $article->find('div.title', 0)->plaintext;
+                    foreach ( $item->find( 'td.project-name' ) as $project ) {
+                        $files['project-name'] = $project;
+                    }
+
+                    foreach ( $item->find( 'a.user-name-link' ) as $uname ) {
+                        $files['user-name'] = $uname;
+                    }
+
+                    foreach ( $item->find( 'td.post-text' ) as $text ) {
+                        $files['user-name'] = $text;
+                    }
+//                    $files[] = $item;
+                }
+
+                foreach ( $files as $k => $v ) {
+
+                    H::h( $v->plaintext, 0 );
+                }
 
 
 //                $html_array[] = $k['html']; // Собираем html в массив
@@ -166,7 +189,7 @@ class Parsing
 //                    $file = str_replace( ': quoted-printable', '', $file );
                     $html = SHD::str_get_html( $file );
 
-                    H::h( $file, 0 );
+//                    H::h( $file, 0 );
 
                     $mail_array[$key][$key2]['html'] = $html;
 //                    $mail_array[$key]['html'] = $html->save();
@@ -186,7 +209,7 @@ class Parsing
         unset( $val );
 
 
-        exit;
+//        exit;
 //        $this->mail_array = $mail_array;
         return $mail_array;
     }

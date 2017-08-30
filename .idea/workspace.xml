@@ -4,7 +4,6 @@
     <list default="true" id="3e394192-5282-43c7-8c64-25c2274cbc66" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mailparsing/controllers/DefaultController.php" afterPath="$PROJECT_DIR$/modules/mailparsing/controllers/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mailparsing/models/GetMail.php" afterPath="$PROJECT_DIR$/modules/mailparsing/models/GetMail.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mailparsing/models/Parsing.php" afterPath="$PROJECT_DIR$/modules/mailparsing/models/Parsing.php" />
     </list>
     <ignored path="test.mail_parsing.iws" />
@@ -51,21 +50,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Parsing.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Parsing.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/Parsing.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="871">
-              <caret line="188" column="13" selection-start-line="188" selection-start-column="13" selection-end-line="188" selection-end-column="13" />
+            <state relative-caret-position="549">
+              <caret line="82" column="57" selection-start-line="82" selection-start-column="57" selection-end-line="82" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GetMail.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GetMail.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/GetMail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="682">
-              <caret line="84" column="21" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+            <state relative-caret-position="1138">
+              <caret line="100" column="14" selection-start-line="100" selection-start-column="13" selection-end-line="100" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -85,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/controllers/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="414">
-              <caret line="53" column="52" selection-start-line="53" selection-start-column="52" selection-end-line="53" selection-end-column="52" />
+              <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -178,9 +177,9 @@
         <option value="$PROJECT_DIR$/controllers/PostController.php" />
         <option value="$PROJECT_DIR$/controllers/ProfileController.php" />
         <option value="$PROJECT_DIR$/modules/mailparsing/models/H.php" />
+        <option value="$PROJECT_DIR$/modules/mailparsing/models/GetMail.php" />
         <option value="$PROJECT_DIR$/modules/mailparsing/controllers/DefaultController.php" />
         <option value="$PROJECT_DIR$/modules/mailparsing/models/Parsing.php" />
-        <option value="$PROJECT_DIR$/modules/mailparsing/models/GetMail.php" />
       </list>
     </option>
   </component>
@@ -347,15 +346,15 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="H:\OpenServer\domains\test.mailparsing\modules\m" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="H:\OpenServer\domains\test.mailparsing\views" />
       <recent name="H:\OpenServer\domains\test.mailparsing\controllers" />
       <recent name="H:\OpenServer\domains\test.mailparsing\models\tables" />
       <recent name="H:\OpenServer\domains\test.mailparsing\models" />
       <recent name="H:\OpenServer\domains\test.mailparsing\modules\mailparsing\views\default" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\OpenServer\domains\test.mailparsing\modules\m" />
     </key>
   </component>
   <component name="RunManager">
@@ -407,7 +406,7 @@
       <workItem from="1501958945930" duration="81946000" />
       <workItem from="1502994170402" duration="102509000" />
       <workItem from="1503383029666" duration="887000" />
-      <workItem from="1503863122723" duration="24982000" />
+      <workItem from="1503863122723" duration="33967000" />
     </task>
     <task id="LOCAL-00001" summary="add all files">
       <created>1502737812602</created>
@@ -479,11 +478,18 @@
       <option name="project" value="LOCAL" />
       <updated>1503921530401</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="get parts!!">
+      <created>1503987719545</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1503987719546</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212041000" />
+    <option name="totallyTimeSpent" value="221026000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -530,7 +536,8 @@
     <MESSAGE value="install SHD" />
     <MESSAGE value="add profile CRUD" />
     <MESSAGE value="add brunch new_mails" />
-    <option name="LAST_COMMIT_MESSAGE" value="add brunch new_mails" />
+    <MESSAGE value="get parts!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="get parts!!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -837,23 +844,23 @@
     <entry file="file://$PROJECT_DIR$/modules/mailparsing/controllers/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
-          <caret line="53" column="52" selection-start-line="53" selection-start-column="52" selection-end-line="53" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/Parsing.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="871">
-          <caret line="188" column="13" selection-start-line="188" selection-start-column="13" selection-end-line="188" selection-end-column="13" />
+          <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/GetMail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="84" column="21" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+        <state relative-caret-position="1138">
+          <caret line="100" column="14" selection-start-line="100" selection-start-column="13" selection-end-line="100" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/Parsing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="82" column="57" selection-start-line="82" selection-start-column="57" selection-end-line="82" selection-end-column="57" />
           <folding />
         </state>
       </provider>
