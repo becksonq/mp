@@ -67,33 +67,39 @@ class Parsing
 
 //                H::h( $file['file'] );
 
-                $html = SHD::str_get_html( $file['file'] );
+                $html = SHD::str_get_html( $file['file'] ); //H::h($html,0); exit;
 
-                foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $key2 => $item ) {
-//                    H::h($item); exit;
+                foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $item ) {
+//                     H::h(gettype($item)); exit;
 //                    $item['title']     = $article->find('div.title', 0)->plaintext;
-                    foreach ( $item->find( 'td.project-name' ) as $project ) {
-                        $files['project-name'] = $project;
+
+                    foreach ( $item->find( '.project-name' ) as $project ) {
+                        $files['project-name'] = $project->plaintext; //H::h($files['project-name'],0);
+                        $post = $project->parent()->next_sibling()->innertext;
+                        $post = $post->find('.post-text');
+                        H::h( $post, 0 );
+//                        H::h($project->parent()->next_sibling()->find('.user-name-link')->plaintext, 0);
                     }
 
-                    foreach ( $item->find( 'a.user-name-link' ) as $uname ) {
-                        $files['user-name'] = $uname;
-                    }
-
-                    foreach ( $item->find( 'td.post-text' ) as $text ) {
-                        $files['user-name'] = $text;
-                    }
+//                    foreach ( $item->find( 'a.user-name-link' ) as $uname ) {
+//                        $files['user-name'] = $uname;
+//                    }
+//
+//                    foreach ( $item->find( 'td.post-text' ) as $text ) {
+//                        $files['user-name'] = $text;
+//                    }
 //                    $files[] = $item;
                 }
 
-                foreach ( $files as $k => $v ) {
-
-                    H::h( $v->plaintext, 0 );
-                }
+//                foreach ( $files as $k => $v ) {
+//
+//                    H::h( $k, 0 );
+//                }
 
 
 //                $html_array[] = $k['html']; // Собираем html в массив
             }
+
         }
         unset( $value );
         exit;
