@@ -15,150 +15,160 @@ use app\models\tables\Profile;
 class Parsing
 {
 
-    public $mail_array = [ ];
-    public $el = [ ];
+    public $mail_array = [];
+    public $el = [];
 
-    public function getUsersFromTable( $new_users )
+    public function getUsersFromTable($new_users)
     {
-        $names = [ ];
+        $names = [];
 
         // Получаем данные из таблицы
-        $u = Profile::find()
-            ->asArray()
-            ->where( [ 'not', [ 'firstname' => null ] ] )
-            ->all();
+        $u = Profile::find()->asArray()->where([
+            'not',
+            ['firstname' => null]
+        ])->all();
 
         // Получаем имя/фамилию из данных
-        foreach ( $u as $v ) {
+        foreach ($u as $v) {
             $names[] = $v['lastname'] . $v['firstname'];
         }
 
         // Удаляем пробелы из строки
-        foreach ( $new_users as &$u ) {
-            $u = str_replace( " ", "", $u );
+        foreach ($new_users as &$u) {
+            $u = str_replace(" ", "", $u);
         }
 
         // Сравниваем юзеров для нахождения новых
-        $res = array_diff( $new_users, $names );
+        $res = array_diff($new_users, $names);
 
         return $res;
     }
 
     /**
      * Получаем массив страниц html
+     *
      * @param $object
+     *
      * @return array
      */
-    public function getHtmlArray( $object )
+    public function getHtmlArray($object)
     {
         // Получаем массив $session['messages']...
-//        H::h( gettype( $object ), 0 ); // $object -> array
+        //        H::h( gettype( $object ), 0 ); // $object -> array
 
-        $html_array = [ ];
+        $html_array = [];
 
-        foreach ( $object as $key => $value ) {
+        foreach ($object as $key => $value) {
             // Перебираем письма
             // $value --> письмо
-//            H::h( $key, 0 );
+            //            H::h( $key, 0 );
 
-//            H::h(count($value['attachs']), 0);
+            //            H::h(count($value['attachs']), 0);
 
-            foreach ( $value['attachs'] as $key1 => $file ) {
+            foreach ($value['attachs'] as $key1 => $file) {
 
-//                H::h( $file['file'] );
+                //                H::h( $file['file'] );
 
-                $html = SHD::str_get_html( $file['file'] ); //H::h($html,0); exit;
+                $html = SHD::str_get_html($file['file']); //H::h($html,0); exit;
 
-                foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $item ) {
-//                     H::h(gettype($item)); exit;
-//                    $item['title']     = $article->find('div.title', 0)->plaintext;
+                foreach ($html->find('table[bgcolor="#e8eaf6"]') as $item) {
+                    //                     H::h(gettype($item)); exit;
+                    //                    $item['title']     = $article->find('div.title', 0)->plaintext;
 
-                    foreach ( $item->find( '.project-name' ) as $project ) {
+                    foreach ($item->find('.project-name') as $project) {
                         $files['project-name'] = $project->plaintext; //H::h($files['project-name'],0);
-                        $post = $project->parent()->next_sibling()->innertext;
-                        $post = $post->find('.post-text');
-                        H::h( $post, 0 );
-//                        H::h($project->parent()->next_sibling()->find('.user-name-link')->plaintext, 0);
+                        H::h($project->parent()->next_sibling()->children([1])->tag);
+
+
+                        //                        H::h($project->parent()->next_sibling()->find('.user-name-link')->plaintext, 0);
                     }
 
-//                    foreach ( $item->find( 'a.user-name-link' ) as $uname ) {
-//                        $files['user-name'] = $uname;
-//                    }
-//
-//                    foreach ( $item->find( 'td.post-text' ) as $text ) {
-//                        $files['user-name'] = $text;
-//                    }
-//                    $files[] = $item;
+                    //                    foreach ( $item->find( 'a.user-name-link' ) as $uname ) {
+                    //                        $files['user-name'] = $uname;
+                    //                    }
+                    //
+                    //                    foreach ( $item->find( 'td.post-text' ) as $text ) {
+                    //                        $files['user-name'] = $text;
+                    //                    }
+                    //                    $files[] = $item;
                 }
 
-//                foreach ( $files as $k => $v ) {
-//
-//                    H::h( $k, 0 );
-//                }
+                //                foreach ( $files as $k => $v ) {
+                //
+                //                    H::h( $k, 0 );
+                //                }
 
 
-//                $html_array[] = $k['html']; // Собираем html в массив
+                //                $html_array[] = $k['html']; // Собираем html в массив
+
+                $html->clear();
+                unset($html);
             }
 
+
         }
-        unset( $value );
+        unset($value);
         exit;
         return $html_array;
     }
 
     /**
      * Получаем массив уникальных юзеров
+     *
      * @param $object
+     *
      * @return array
      */
-    public function getUsersArray( $object )
+    public function getUsersArray($object)
     {
-        $users = [ ];
+        $users = [];
 
-        foreach ( $object as $value ) {
-            foreach ( $value as $val ) {
-                foreach ( $val['user-name-link'] as $key => $v ) {
+        foreach ($object as $value) {
+            foreach ($value as $val) {
+                foreach ($val['user-name-link'] as $key => $v) {
                     $users[] = $v; // Собираем юзеров в массив
-//                    print $key . ':' . $v . '<br>';
+                    //                    print $key . ':' . $v . '<br>';
                 }
             }
-            unset( $val );
+            unset($val);
         }
-        unset( $value );
+        unset($value);
 
-        $users = array_unique( $users );
+        $users = array_unique($users);
 
         return $users;
     }
 
     /**
      * Получаем детали
+     *
      * @param $object
+     *
      * @return array
      */
-    public function getDetales( $object )
+    public function getDetales($object)
     {
-        $el = [ ];
+        $el = [];
 
-        foreach ( $object as $key => $val ) {
+        foreach ($object as $key => $val) {
 
-            $html = SHD::str_get_html( $val );
-//            $this->el[] = $html->find( 'table' );
+            $html = SHD::str_get_html($val);
+            //            $this->el[] = $html->find( 'table' );
 
-            $el[$key]['project-name'] = $html->find( 'td.project-name' );
-            $el[$key]['user-name-link'] = $html->find( 'a.user-name-link' );
-            $el[$key]['post-text'] = $html->find( 'td.post-text' );
+            $el[$key]['project-name'] = $html->find('td.project-name');
+            $el[$key]['user-name-link'] = $html->find('a.user-name-link');
+            $el[$key]['post-text'] = $html->find('td.post-text');
 
         }
-        unset( $val );
+        unset($val);
 
-        foreach ( $el as $keys => &$val ) {
-            foreach ( $val['user-name-link'] as $key => &$v ) {
+        foreach ($el as $keys => &$val) {
+            foreach ($val['user-name-link'] as $key => &$v) {
                 $user = $v->innertext;
                 $v = $user;
             }
         }
-        unset( $val );
+        unset($val);
 
         $this->el = $el;
         return $this->el;
@@ -166,57 +176,59 @@ class Parsing
 
     /**
      * Разбираем вложение
+     *
      * @param $object
+     *
      * @return array
      */
-    public function getStrHtml( $object )
+    public function getStrHtml($object)
     {
-//        print_r ($object); exit;
-        $mail_array = [ ];
+        //        print_r ($object); exit;
+        $mail_array = [];
 
-        foreach ( $object as $key => $val ) {
+        foreach ($object as $key => $val) {
             // $val --> Письма
 
             $mail_array[$key]['id'] = $val['id'];
             $mail_array[$key]['date'] = $val['date'];
             $mail_array[$key]['time'] = $val['time'];
 
-//            H::h( $key, 0 );
+            //            H::h( $key, 0 );
 
-            foreach ( $val['attachs'] as $key1 => $part ) {
-//                H::h( $part );
+            foreach ($val['attachs'] as $key1 => $part) {
+                //                H::h( $part );
 
                 //$file = mb_strstr( $part, '<!' );
 
-                foreach ( $part as $key2 => $file ) {
+                foreach ($part as $key2 => $file) {
 
-//                    $file = mb_strstr( $file, 'quoted-printable' );
-//                    $file = mb_strstr( $file, ': quoted-printable' );
-//                    $file = str_replace( ': quoted-printable', '', $file );
-                    $html = SHD::str_get_html( $file );
+                    //                    $file = mb_strstr( $file, 'quoted-printable' );
+                    //                    $file = mb_strstr( $file, ': quoted-printable' );
+                    //                    $file = str_replace( ': quoted-printable', '', $file );
+                    $html = SHD::str_get_html($file);
 
-//                    H::h( $file, 0 );
+                    //                    H::h( $file, 0 );
 
                     $mail_array[$key][$key2]['html'] = $html;
-//                    $mail_array[$key]['html'] = $html->save();
+                    //                    $mail_array[$key]['html'] = $html->save();
 
                 }
 
             }
-//
-//            $file = $val['attachs'][1]['file'];
+            //
+            //            $file = $val['attachs'][1]['file'];
 
 
-//
-//
-//            $mail_array[$key]['html'] = $html->save();
+            //
+            //
+            //            $mail_array[$key]['html'] = $html->save();
 
         }
-        unset( $val );
+        unset($val);
 
 
-//        exit;
-//        $this->mail_array = $mail_array;
+        //        exit;
+        //        $this->mail_array = $mail_array;
         return $mail_array;
     }
 
