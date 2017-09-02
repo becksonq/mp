@@ -15,31 +15,31 @@ use app\models\tables\Profile;
 class Parsing
 {
 
-    public $mail_array = [];
-    public $el = [];
+    public $mail_array = [ ];
+    public $el = [ ];
 
-    public function getUsersFromTable($new_users)
+    public function getUsersFromTable( $new_users )
     {
-        $names = [];
+        $names = [ ];
 
         // Получаем данные из таблицы
-        $u = Profile::find()->asArray()->where([
+        $u = Profile::find()->asArray()->where( [
             'not',
-            ['firstname' => null]
-        ])->all();
+            [ 'firstname' => null ]
+        ] )->all();
 
         // Получаем имя/фамилию из данных
-        foreach ($u as $v) {
+        foreach ( $u as $v ) {
             $names[] = $v['lastname'] . $v['firstname'];
         }
 
         // Удаляем пробелы из строки
-        foreach ($new_users as &$u) {
-            $u = str_replace(" ", "", $u);
+        foreach ( $new_users as &$u ) {
+            $u = str_replace( " ", "", $u );
         }
 
         // Сравниваем юзеров для нахождения новых
-        $res = array_diff($new_users, $names);
+        $res = array_diff( $new_users, $names );
 
         return $res;
     }
@@ -51,63 +51,74 @@ class Parsing
      *
      * @return array
      */
-    public function getHtmlArray($object)
+    public function getHtmlArray( $object )
     {
         // Получаем массив $session['messages']...
         //        H::h( gettype( $object ), 0 ); // $object -> array
 
-        $html_array = [];
+        $html_array = [ ];
 
-        foreach ($object as $key => $value) {
+        foreach ( $object as $key => $value ) {
             // Перебираем письма
             // $value --> письмо
             //            H::h( $key, 0 );
 
             //            H::h(count($value['attachs']), 0);
 
-            foreach ($value['attachs'] as $key1 => $file) {
+            foreach ( $value['attachs'] as $key1 => $file ) {
 
-                //                H::h( $file['file'] );
+//                                H::h( $file['file'],0 );
 
-                $html = SHD::str_get_html($file['file']); //H::h($html,0); exit;
+                $html = SHD::str_get_html( $file['file'] ); //H::h($html,0); exit;
 
-                foreach ($html->find('table[bgcolor="#e8eaf6"]') as $item) {
-                    //                     H::h(gettype($item)); exit;
-                    //                    $item['title']     = $article->find('div.title', 0)->plaintext;
-
-                    foreach ($item->find('.project-name') as $project) {
-                        $files['project-name'] = $project->plaintext; //H::h($files['project-name'],0);
-                        H::h($project->parent()->next_sibling()->children([1])->tag);
-
-
-                        //                        H::h($project->parent()->next_sibling()->find('.user-name-link')->plaintext, 0);
-                    }
-
-                    //                    foreach ( $item->find( 'a.user-name-link' ) as $uname ) {
-                    //                        $files['user-name'] = $uname;
-                    //                    }
-                    //
-                    //                    foreach ( $item->find( 'td.post-text' ) as $text ) {
-                    //                        $files['user-name'] = $text;
-                    //                    }
-                    //                    $files[] = $item;
+                foreach ( $html->find( 'style, meta, link, title, comment' ) as $style ) {
+                    $style->outertext = '';
                 }
 
-                //                foreach ( $files as $k => $v ) {
-                //
-                //                    H::h( $k, 0 );
-                //                }
+//                H::h( $html, 0);
+
+                if ( count( $html->find( 'table[bgcolor="#e8eaf6"]' ) ) ) {
+                    foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $item ) {
+                        $files = [ ];
+                        foreach ( $item->find( 'tr' ) as $key => $tr ) {
+
+                            if ( !is_object( $tr ) ) {
+                                continue;
+                            }
+
+                            if ( $t = $tr->find( 'td[class=project-name]' ) ) {
+                                foreach ( $t as $k ) {
+                                    $files[]['project'] = $k->innertext;
+                                }
+                            }
+                            else {
+                                foreach ( $tr->find( 'table[align=center]' ) as $key1 => $table ) {
+                                    $files[]['user'] = $table->find( 'a.user-name-link', 0 )->plaintext;
+
+                                    $files[]['post'] = $table->find( 'td.post-text', 0 )->innertext;
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+
+//                H::h( $files);
+
+                foreach ( $files as $k => $v ) {
+                    if ( $k == 'project' ) {
+                        H::h( $v );
+                    }
+
+                }
 
 
-                //                $html_array[] = $k['html']; // Собираем html в массив
-
-                $html->clear();
-                unset($html);
             }
 
 
         }
-        unset($value);
+        unset( $value );
         exit;
         return $html_array;
     }
@@ -119,22 +130,22 @@ class Parsing
      *
      * @return array
      */
-    public function getUsersArray($object)
+    public function getUsersArray( $object )
     {
-        $users = [];
+        $users = [ ];
 
-        foreach ($object as $value) {
-            foreach ($value as $val) {
-                foreach ($val['user-name-link'] as $key => $v) {
+        foreach ( $object as $value ) {
+            foreach ( $value as $val ) {
+                foreach ( $val['user-name-link'] as $key => $v ) {
                     $users[] = $v; // Собираем юзеров в массив
                     //                    print $key . ':' . $v . '<br>';
                 }
             }
-            unset($val);
+            unset( $val );
         }
-        unset($value);
+        unset( $value );
 
-        $users = array_unique($users);
+        $users = array_unique( $users );
 
         return $users;
     }
@@ -146,29 +157,29 @@ class Parsing
      *
      * @return array
      */
-    public function getDetales($object)
+    public function getDetales( $object )
     {
-        $el = [];
+        $el = [ ];
 
-        foreach ($object as $key => $val) {
+        foreach ( $object as $key => $val ) {
 
-            $html = SHD::str_get_html($val);
+            $html = SHD::str_get_html( $val );
             //            $this->el[] = $html->find( 'table' );
 
-            $el[$key]['project-name'] = $html->find('td.project-name');
-            $el[$key]['user-name-link'] = $html->find('a.user-name-link');
-            $el[$key]['post-text'] = $html->find('td.post-text');
+            $el[$key]['project-name'] = $html->find( 'td.project-name' );
+            $el[$key]['user-name-link'] = $html->find( 'a.user-name-link' );
+            $el[$key]['post-text'] = $html->find( 'td.post-text' );
 
         }
-        unset($val);
+        unset( $val );
 
-        foreach ($el as $keys => &$val) {
-            foreach ($val['user-name-link'] as $key => &$v) {
+        foreach ( $el as $keys => &$val ) {
+            foreach ( $val['user-name-link'] as $key => &$v ) {
                 $user = $v->innertext;
                 $v = $user;
             }
         }
-        unset($val);
+        unset( $val );
 
         $this->el = $el;
         return $this->el;
@@ -181,12 +192,12 @@ class Parsing
      *
      * @return array
      */
-    public function getStrHtml($object)
+    public function getStrHtml( $object )
     {
         //        print_r ($object); exit;
-        $mail_array = [];
+        $mail_array = [ ];
 
-        foreach ($object as $key => $val) {
+        foreach ( $object as $key => $val ) {
             // $val --> Письма
 
             $mail_array[$key]['id'] = $val['id'];
@@ -195,17 +206,17 @@ class Parsing
 
             //            H::h( $key, 0 );
 
-            foreach ($val['attachs'] as $key1 => $part) {
+            foreach ( $val['attachs'] as $key1 => $part ) {
                 //                H::h( $part );
 
                 //$file = mb_strstr( $part, '<!' );
 
-                foreach ($part as $key2 => $file) {
+                foreach ( $part as $key2 => $file ) {
 
                     //                    $file = mb_strstr( $file, 'quoted-printable' );
                     //                    $file = mb_strstr( $file, ': quoted-printable' );
                     //                    $file = str_replace( ': quoted-printable', '', $file );
-                    $html = SHD::str_get_html($file);
+                    $html = SHD::str_get_html( $file );
 
                     //                    H::h( $file, 0 );
 
@@ -224,7 +235,7 @@ class Parsing
             //            $mail_array[$key]['html'] = $html->save();
 
         }
-        unset($val);
+        unset( $val );
 
 
         //        exit;

@@ -84,6 +84,7 @@ class GetMail
                         $mails_data[$i]["attachs"][$key]["file"] = $file;
                     }
                 }
+                unset( $value );
             }
         }
 
