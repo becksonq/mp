@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e394192-5282-43c7-8c64-25c2274cbc66" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_08_2017_22_21__Default_.xml" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_08_2017_22_21__Default_.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/test.mail_parsing.iml" afterPath="$PROJECT_DIR$/.idea/test.mail_parsing.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mailparsing/models/GetMail.php" afterPath="$PROJECT_DIR$/modules/mailparsing/models/GetMail.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mailparsing/models/Parsing.php" afterPath="$PROJECT_DIR$/modules/mailparsing/models/Parsing.php" />
     </list>
     <ignored path="test.mail_parsing.iws" />
@@ -45,7 +45,7 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/site/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1748">
+            <state relative-caret-position="1564">
               <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
               <folding />
             </state>
@@ -55,8 +55,8 @@
       <file leaf-file-name="Parsing.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/Parsing.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
+            <state relative-caret-position="439">
+              <caret line="105" column="52" selection-start-line="105" selection-start-column="52" selection-end-line="105" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -65,7 +65,7 @@
       <file leaf-file-name="GetMail.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/GetMail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="642">
+            <state relative-caret-position="1394">
               <caret line="86" column="32" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="32" />
               <folding />
             </state>
@@ -75,7 +75,7 @@
       <file leaf-file-name="H.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/H.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
+            <state relative-caret-position="136">
               <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
               <folding />
             </state>
@@ -85,7 +85,7 @@
       <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/controllers/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="931">
+            <state relative-caret-position="833">
               <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
               <folding />
             </state>
@@ -95,19 +95,27 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/site/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1083">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SiteController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/SiteController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1520">
-              <caret line="86" column="7" selection-start-line="86" selection-start-column="7" selection-end-line="86" selection-end-column="7" />
-              <folding />
+            <state relative-caret-position="969">
+              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+              <folding>
+                <marker date="1504347141756" expanded="true" signature="230:525" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="256:479" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="508:518" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="975:1040" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="1048:4660" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="1054:1086" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="1191:4658" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="1543:1660" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="1705:1829" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="1884:2000" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="2176:4655" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="2363:4651" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="2428:4646" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="2485:2693" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="2751:3002" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="3014:3580" ph="..." />
+                <marker date="1504347141756" expanded="true" signature="3850:4040" ph="//..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -198,8 +206,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1176" />
+    <option name="width" value="1456" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -226,28 +234,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test.mailparsing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test.mailparsing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test.mailparsing" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -343,6 +334,7 @@
       <workItem from="1503863122723" duration="44555000" />
       <workItem from="1504252427721" duration="3320000" />
       <workItem from="1504266084790" duration="38280000" />
+      <workItem from="1504347384700" duration="7222000" />
     </task>
     <task id="LOCAL-00001" summary="add all files">
       <created>1502737812602</created>
@@ -432,14 +424,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="273214000" />
+    <option name="totallyTimeSpent" value="280436000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959402" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.195629" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1981402" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910246" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -751,7 +743,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/site/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1748">
+        <state relative-caret-position="1564">
           <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
           <folding />
         </state>
@@ -759,15 +751,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/site/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1083">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="969">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <marker date="1504347141756" expanded="true" signature="230:525" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="256:479" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="508:518" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="975:1040" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="1048:4660" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="1054:1086" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="1191:4658" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="1543:1660" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="1705:1829" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="1884:2000" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="2176:4655" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="2363:4651" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="2428:4646" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="2485:2693" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="2751:3002" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="3014:3580" ph="..." />
+            <marker date="1504347141756" expanded="true" signature="3850:4040" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/H.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
+        <state relative-caret-position="136">
           <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
           <folding />
         </state>
@@ -775,7 +785,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/mailparsing/controllers/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
+        <state relative-caret-position="833">
           <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
           <folding />
         </state>
@@ -785,13 +795,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1520">
           <caret line="86" column="7" selection-start-line="86" selection-start-column="7" selection-end-line="86" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/GetMail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
+        <state relative-caret-position="1394">
           <caret line="86" column="32" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="32" />
           <folding />
         </state>
@@ -799,8 +808,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/Parsing.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
+        <state relative-caret-position="439">
+          <caret line="105" column="52" selection-start-line="105" selection-start-column="52" selection-end-line="105" selection-end-column="52" />
           <folding />
         </state>
       </provider>
