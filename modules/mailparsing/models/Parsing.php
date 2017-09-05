@@ -30,7 +30,7 @@ class Parsing
 
         // Получаем имя/фамилию из данных
         foreach ( $u as $v ) {
-            $names[] = $v[ 'lastname' ] . $v[ 'firstname' ];
+            $names[] = $v['lastname'] . $v['firstname'];
         }
 
         // Удаляем пробелы из строки
@@ -65,11 +65,11 @@ class Parsing
 
             //            H::h(count($value['attachs']), 0);
 
-            foreach ( $value[ 'attachs' ] as $key1 => $file ) {
+            foreach ( $value['attachs'] as $key1 => $file ) {
 
 //                                H::h( $file['file'],0 );
 
-                $html = SHD::str_get_html( $file[ 'file' ] ); //H::h($html,0); exit;
+                $html = SHD::str_get_html( $file['file'] ); //H::h($html,0); exit;
 
                 foreach ( $html->find( 'style, meta, link, title, comment' ) as $style ) {
                     $style->outertext = '';
@@ -86,56 +86,65 @@ class Parsing
                                 continue;
                             }
 
-                            if ( $t = $tr->find( 'td[class=project-name]' ) ) {
-                                foreach ( $t as $k ) {
-                                    $files[][ 'project' ] = trim( $k->innertext );
-                                }
-                            } else {
-                                foreach ( $tr->find( 'table[align=center]' ) as $key1 => $table ) {
-                                    $files[][ 'user' ] = trim( $table->find( 'a.user-name-link', 0 )->plaintext );
+                            if ( $project_name = $tr->find( 'td[class=project-name]' ) ) {
+                                foreach ( $project_name as $pname ) {
 
-                                    $files[][ 'post' ] = trim( $table->find( 'td.post-text', 0 )->innertext );
+                                    // Пишем название проекта во временный массив...
+                                    $tmp_array['project'] = trim( $pname->plaintext );
+
+//                                    while ( $tr->next_sibling() ) {
+//
+//                                        foreach ( $tr->next_sibling()->find( 'table[align=center]' ) as $table ) {
+//
+//                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link', 0 )->plaintext );
+//
+//                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
+//                                                $table->find( 'td.post-text', 0 )->innertext ) );
+//
+//                                        }
+//
+////                                        $tr = $tr->next_sibling();
+//                                    }
+
+
+                                    if ( $next = $tr->next_sibling() ) { //H::h(gettype($next),3);
+//
+                                        foreach ( $next->find( 'table[align=center]' ) as $table ) {
+
+                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
+                                                0 )->plaintext );
+
+                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
+                                                $table->find( 'td.post-text',
+                                                    0 )->innertext ) );
+
+//                                        foreach ( $nn->find( 'table[align=center]' ) as $table ) {
+//                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
+//                                                0 )->plaintext );
+//
+//                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
+//                                                $table->find( 'td.post-text',
+//                                                    0 )->innertext ) );
+//                                        }
+                                        }
+                                        $next = $next->next_sibling();
+                                    }
+
+//
                                 }
+                                array_push( $files, $tmp_array );
                             }
                         }
                     }
                 }
 
-//                H::h( $files );
+                H::h( $files );
 
                 // Массив из двумерного в одномерный
-                $arrOut = [ ];
-                foreach ( $files as $subArr ) {
-                    $arrOut = array_merge( $arrOut, array_values( $subArr ) );
-                }
-
-                H::h( $arrOut );
-//                $ar = [ ];
-//                foreach ( $files as $k => $v ) {
-////                    H::h(gettype($v),0);
-//                    $arr = [ ];
-//                    if ( $k == 'project' ) {
-//
-//                        $arr[ 'pro' ] = $v;
-////                        H::h( $v );
-//                    }
-//                    array_push( $ar, $arr);
-//                    $arr  = [];
-//
-//
+//                $arrOut = [ ];
+//                foreach ( $files as $subArr ) {
+//                    $arrOut = array_merge( $arrOut, array_values( $subArr ) );
 //                }
-
-//                H::h($arr);
-
-//                $array = [
-//                    [ 0 ] => array [
-//                                       [ 0 ] => [ 'project' ],
-//                                       [ 1 ] => [ 'user' ],
-//                                       [ 2 ] => [ 'post' ]
-//                                   ],
-//                ];
-
-
             }
 
 
@@ -158,7 +167,7 @@ class Parsing
 
         foreach ( $object as $value ) {
             foreach ( $value as $val ) {
-                foreach ( $val[ 'user-name-link' ] as $key => $v ) {
+                foreach ( $val['user-name-link'] as $key => $v ) {
                     $users[] = $v; // Собираем юзеров в массив
                     //                    print $key . ':' . $v . '<br>';
                 }
@@ -188,15 +197,15 @@ class Parsing
             $html = SHD::str_get_html( $val );
             //            $this->el[] = $html->find( 'table' );
 
-            $el[ $key ][ 'project-name' ] = $html->find( 'td.project-name' );
-            $el[ $key ][ 'user-name-link' ] = $html->find( 'a.user-name-link' );
-            $el[ $key ][ 'post-text' ] = $html->find( 'td.post-text' );
+            $el[$key]['project-name'] = $html->find( 'td.project-name' );
+            $el[$key]['user-name-link'] = $html->find( 'a.user-name-link' );
+            $el[$key]['post-text'] = $html->find( 'td.post-text' );
 
         }
         unset( $val );
 
         foreach ( $el as $keys => &$val ) {
-            foreach ( $val[ 'user-name-link' ] as $key => &$v ) {
+            foreach ( $val['user-name-link'] as $key => &$v ) {
                 $user = $v->innertext;
                 $v = $user;
             }
@@ -222,13 +231,13 @@ class Parsing
         foreach ( $object as $key => $val ) {
             // $val --> Письма
 
-            $mail_array[ $key ][ 'id' ] = $val[ 'id' ];
-            $mail_array[ $key ][ 'date' ] = $val[ 'date' ];
-            $mail_array[ $key ][ 'time' ] = $val[ 'time' ];
+            $mail_array[$key]['id'] = $val['id'];
+            $mail_array[$key]['date'] = $val['date'];
+            $mail_array[$key]['time'] = $val['time'];
 
             //            H::h( $key, 0 );
 
-            foreach ( $val[ 'attachs' ] as $key1 => $part ) {
+            foreach ( $val['attachs'] as $key1 => $part ) {
                 //                H::h( $part );
 
                 //$file = mb_strstr( $part, '<!' );
@@ -242,7 +251,7 @@ class Parsing
 
                     //                    H::h( $file, 0 );
 
-                    $mail_array[ $key ][ $key2 ][ 'html' ] = $html;
+                    $mail_array[$key][$key2]['html'] = $html;
                     //                    $mail_array[$key]['html'] = $html->save();
 
                 }

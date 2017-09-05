@@ -21,7 +21,11 @@ class H
             echo $arg . '<br>';
         }
         elseif ( $num == 2 ) {
-            echo $num;
+            echo $arg;
+        }
+        elseif ( $num == 3 ) {
+            echo $arg;
+            exit;
         }
     }
 }
