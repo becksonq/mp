@@ -79,61 +79,101 @@ class Parsing
 
                 if ( count( $html->find( 'table[bgcolor="#e8eaf6"]' ) ) ) {
                     foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $item ) {
+
                         $files = [ ];
-                        foreach ( $item->find( 'tr' ) as $key => $tr ) {
+
+                        foreach ( $item->find( 'tr' ) as $tr ) {
+
+                            foreach ( $tr->first_child() as $el ){
+                                H::h($el, 0);
+                            }
 
                             if ( !is_object( $tr ) ) {
                                 continue;
                             }
 
-                            if ( $project_name = $tr->find( 'td[class=project-name]' ) ) {
-                                foreach ( $project_name as $pname ) {
-
-                                    // Пишем название проекта во временный массив...
-                                    $tmp_array['project'] = trim( $pname->plaintext );
-
-//                                    while ( $tr->next_sibling() ) {
-//
-//                                        foreach ( $tr->next_sibling()->find( 'table[align=center]' ) as $table ) {
-//
-//                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link', 0 )->plaintext );
-//
-//                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
-//                                                $table->find( 'td.post-text', 0 )->innertext ) );
-//
-//                                        }
-//
-////                                        $tr = $tr->next_sibling();
-//                                    }
-
-
-                                    if ( $next = $tr->next_sibling() ) { //H::h(gettype($next),3);
-//
-                                        foreach ( $next->find( 'table[align=center]' ) as $table ) {
-
-                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
-                                                0 )->plaintext );
-
-                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
-                                                $table->find( 'td.post-text',
-                                                    0 )->innertext ) );
-
-//                                        foreach ( $nn->find( 'table[align=center]' ) as $table ) {
-//                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
-//                                                0 )->plaintext );
-//
-//                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
-//                                                $table->find( 'td.post-text',
-//                                                    0 )->innertext ) );
-//                                        }
-                                        }
-                                        $next = $next->next_sibling();
-                                    }
+//                            if ( $tr->first_child()->getAttribute('class') == 'project-name' ) {
+//                                $tmp_array['project'] = trim( $tr->first_child('td[class=project-name]')->plaintext );
+//                            }
 
 //
-                                }
-                                array_push( $files, $tmp_array );
-                            }
+//
+//                            $tmp_array['t'] = trim( str_replace( '/\s{2,}/', ' ',
+//                                $tr->find( 'td[class!=project-name]', 0 )->innertext ));
+
+//                            $u = $tr->find( 'a.user-name-link',0 )->plaintext;
+//                            $tmp_array['user'] = trim($u);
+//
+//                            $s = $tr->find( 'td.post-text', 0 )->innertext;
+//                            $tmp_array['post'] = trim(str_replace( '/\s{2,}/', ' ',$s));
+
+//                            H::h( $s, 0);
+
+
+//                            if ( $project_name = $tr->find( 'td[class=project-name]' ) ) {
+//                                foreach ( $project_name as $pname ) {
+//
+//                                    // Пишем название проекта во временный массив...
+//                                    $tmp_array['project'] = trim( $pname->plaintext );
+//
+//
+//
+////                                    while ( $n = $pname->parent()->next_sibling()->find( 'table[align=center]' ) ) {
+////                                        foreach ( $n as $el ) {
+////                                            H::h( $el->plaintext, 0 );
+////                                        }
+////
+////
+//////                                        if ( $t = $tr->find(  ) ) {
+//////                                            H::h( $t->tag, 3 );
+//////                                        } else {
+//////                                            echo 'a'; exit;
+//////                                        }
+////
+////
+//////                                        foreach ( $t as $table ) {
+//////
+//////                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
+//////                                                0 )->plaintext );
+//////
+//////                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
+//////                                                $table->find( 'td.post-text', 0 )->innertext ) );
+//////
+//////                                        }
+////
+//////                                        $tr = $tr->next_sibling();
+////                                    }
+//
+//
+////                                    if ( $next = $tr->next_sibling() ) { //H::h(gettype($next),3);
+//////
+////                                        foreach ( $next->find( 'table[align=center]' ) as $table ) {
+////
+////                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
+////                                                0 )->plaintext );
+////
+////                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
+////                                                $table->find( 'td.post-text',
+////                                                    0 )->innertext ) );
+////
+//////                                        foreach ( $nn->find( 'table[align=center]' ) as $table ) {
+//////                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
+//////                                                0 )->plaintext );
+//////
+//////                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
+//////                                                $table->find( 'td.post-text',
+//////                                                    0 )->innertext ) );
+//////                                        }
+////                                        }
+////                                        $next = $next->next_sibling();
+////                                    }
+//
+////
+//                                } //exit;
+                            array_push( $files, $tmp_array );
+//                            }
+
+
                         }
                     }
                 }
