@@ -57,14 +57,11 @@ class Parsing
         //        H::h( gettype( $object ), 0 ); // $object -> array
 
         $html_array = [ ];
+        $files = [ ];
 
         foreach ( $object as $key => $value ) {
             // Перебираем письма
             // $value --> письмо
-            //            H::h( $key, 0 );
-
-            //            H::h(count($value['attachs']), 0);
-
             foreach ( $value['attachs'] as $key1 => $file ) {
 
 //                                H::h( $file['file'],0 );
@@ -75,123 +72,124 @@ class Parsing
                     $style->outertext = '';
                 }
 
+                $str = $html->save();
+
+                $html = SHD::str_get_html( $str );
+
 //                H::h( $html, 0);
 
                 if ( count( $html->find( 'table[bgcolor="#e8eaf6"]' ) ) ) {
                     foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $item ) {
 
-                        $files = [ ];
 
-                        foreach ( $item->find( 'tr' ) as $tr ) {
-
-                            foreach ( $tr->first_child() as $el ){
-                                H::h($el, 0);
-                            }
+                        foreach ( $item->find( 'tr' ) as $key => $tr ) {
 
                             if ( !is_object( $tr ) ) {
                                 continue;
                             }
 
-//                            if ( $tr->first_child()->getAttribute('class') == 'project-name' ) {
-//                                $tmp_array['project'] = trim( $tr->first_child('td[class=project-name]')->plaintext );
+                            if ( $t = $tr->find( 'td[class=project-name]' ) ) {
+                                // Если нашли название проекта...
+//                                H::h( 'pr = ' . $key, 1);
+                                foreach ( $t as $k ) {
+
+                                    $tmp_array['project'] = trim( $k->innertext );
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                    $parent = $k->parent()->next_sibling(); // это tr
+//                                    H::h($parent->outertext, 3);
+
+//                                    if ( $n = $parent->find( 'table[align=center]' ) ) {
+
+                                    foreach ( $parent->find( 'table[align=center]' ) as $el ) {
+//                                            H::h(gettype($el), 3);
+                                        $tmp_array['details']['user'] = trim( $el->find( 'a.user-name-link', 0 )->plaintext );
+//
+                                        $tmp_array['details']['post'] = trim( str_replace( '/\s{2,}/', ' ',
+                                            $el->find( 'td.post-text', 0 )->innertext ) );
+//
+                                    }
+
+
+
+                                    if ( $parent->next_sibling()->find( 'table[align=center]' ) ) {
+                                        $parent = $parent->next_sibling();
+//                                            H::h($parent->outertext, 3);
+
+                                    }
+
+
+//                                    }
+                                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                }
+                            }
+//                            else {
+//                                if ( $n = $tr->find( 'table[align=center]' ) ) {
+//                                    // Если нашли детали...
+//                                    H::h( 'dt = ' . $key, 1);
+//                                    foreach ( $n as $el ) {
+//                                        $tmp_array['project']['user'] = trim( $el->find( 'a.user-name-link',
+//                                            0 )->plaintext );
+//
+//                                        $tmp_array['project']['post'] = trim( str_replace( '/\s{2,}/', ' ',
+//                                            $el->find( 'td.post-text', 0 )->innertext ) );
+//                                    }
+//                                    unset ( $el );
+//                                }
+//
 //                            }
 
-//
-//
-//                            $tmp_array['t'] = trim( str_replace( '/\s{2,}/', ' ',
-//                                $tr->find( 'td[class!=project-name]', 0 )->innertext ));
-
-//                            $u = $tr->find( 'a.user-name-link',0 )->plaintext;
-//                            $tmp_array['user'] = trim($u);
-//
-//                            $s = $tr->find( 'td.post-text', 0 )->innertext;
-//                            $tmp_array['post'] = trim(str_replace( '/\s{2,}/', ' ',$s));
-
-//                            H::h( $s, 0);
-
-
-//                            if ( $project_name = $tr->find( 'td[class=project-name]' ) ) {
-//                                foreach ( $project_name as $pname ) {
-//
-//                                    // Пишем название проекта во временный массив...
-//                                    $tmp_array['project'] = trim( $pname->plaintext );
-//
-//
-//
-////                                    while ( $n = $pname->parent()->next_sibling()->find( 'table[align=center]' ) ) {
-////                                        foreach ( $n as $el ) {
-////                                            H::h( $el->plaintext, 0 );
-////                                        }
-////
-////
-//////                                        if ( $t = $tr->find(  ) ) {
-//////                                            H::h( $t->tag, 3 );
-//////                                        } else {
-//////                                            echo 'a'; exit;
-//////                                        }
-////
-////
-//////                                        foreach ( $t as $table ) {
-//////
-//////                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
-//////                                                0 )->plaintext );
-//////
-//////                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
-//////                                                $table->find( 'td.post-text', 0 )->innertext ) );
-//////
-//////                                        }
-////
-//////                                        $tr = $tr->next_sibling();
-////                                    }
-//
-//
-////                                    if ( $next = $tr->next_sibling() ) { //H::h(gettype($next),3);
-//////
-////                                        foreach ( $next->find( 'table[align=center]' ) as $table ) {
-////
-////                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
-////                                                0 )->plaintext );
-////
-////                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
-////                                                $table->find( 'td.post-text',
-////                                                    0 )->innertext ) );
-////
-//////                                        foreach ( $nn->find( 'table[align=center]' ) as $table ) {
-//////                                            $tmp_array['user'] = trim( $table->find( 'a.user-name-link',
-//////                                                0 )->plaintext );
-//////
-//////                                            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
-//////                                                $table->find( 'td.post-text',
-//////                                                    0 )->innertext ) );
-//////                                        }
-////                                        }
-////                                        $next = $next->next_sibling();
-////                                    }
-//
-////
-//                                } //exit;
-                            array_push( $files, $tmp_array );
-//                            }
-
-
+                            if ( count( $tmp_array ) > 0 ) {
+                                $files[] = $tmp_array;
+                                $tmp_array = [ ];
+                            }
                         }
+
                     }
                 }
-
-                H::h( $files );
-
-                // Массив из двумерного в одномерный
-//                $arrOut = [ ];
-//                foreach ( $files as $subArr ) {
-//                    $arrOut = array_merge( $arrOut, array_values( $subArr ) );
-//                }
             }
-
-
         }
+
+        H::h( $files );
+//        $ar = [];
+//        foreach ( $files as $key => $el ) {
+//
+////            H::h( $key, 0);
+//            foreach ( $el as $a ) {
+//                if ( !is_array( $a ) ) {
+//                    $array['project'] = $a;
+////                    H::h( $a, 1);
+//                }
+//                else {
+//                    $array['details'] = $a;
+//                }
+//
+//                $ar[] = $array;
+//                $array = [];
+//            }
+//        }
+//
+//        H::h( $ar );
+
+
+        exit;
+
         unset( $value );
         exit;
         return $html_array;
+    }
+
+    public function getParent( $el )
+    {
+
+        foreach ( $el->find( 'table[align=center]' ) as $el ) {
+//                                            H::h(gettype($el), 3);
+            $tmp_array['user'] = trim( $el->find( 'a.user-name-link', 0 )->plaintext );
+//
+            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
+                $el->find( 'td.post-text', 0 )->innertext ) );
+//
+        }
+        return $tmp_array;
     }
 
     /**
