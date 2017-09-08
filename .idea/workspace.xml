@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3e394192-5282-43c7-8c64-25c2274cbc66" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mailparsing/models/Parsing.php" afterPath="$PROJECT_DIR$/modules/mailparsing/models/Parsing.php" />
     </list>
     <ignored path="test.mail_parsing.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,8 +52,8 @@
       <file leaf-file-name="Parsing.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/Parsing.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="93" column="34" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
+            <state relative-caret-position="356">
+              <caret line="94" column="35" selection-start-line="94" selection-start-column="35" selection-end-line="94" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -305,7 +304,7 @@
       <workItem from="1504252427721" duration="3320000" />
       <workItem from="1504266084790" duration="38280000" />
       <workItem from="1504347384700" duration="7222000" />
-      <workItem from="1504469196132" duration="81676000" />
+      <workItem from="1504469196132" duration="81816000" />
     </task>
     <task id="LOCAL-00001" summary="add all files">
       <created>1502737812602</created>
@@ -412,11 +411,18 @@
       <option name="project" value="LOCAL" />
       <updated>1504786898460</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="parsing middle">
+      <created>1504858013428</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1504858013492</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="362112000" />
+    <option name="totallyTimeSpent" value="362252000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -466,7 +472,8 @@
     <MESSAGE value="get parts!!" />
     <MESSAGE value="parsing start" />
     <MESSAGE value="parsing before branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="parsing before branch" />
+    <MESSAGE value="parsing middle" />
+    <option name="LAST_COMMIT_MESSAGE" value="parsing middle" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -782,8 +789,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/mailparsing/models/Parsing.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="93" column="34" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
+        <state relative-caret-position="356">
+          <caret line="94" column="35" selection-start-line="94" selection-start-column="35" selection-end-line="94" selection-end-column="35" />
           <folding />
         </state>
       </provider>
