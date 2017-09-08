@@ -17,6 +17,8 @@ class Parsing
 
     public $mail_array = [ ];
     public $el = [ ];
+    public $tmp;
+    public $t = 0;
 
     public function getUsersFromTable( $new_users )
     {
@@ -63,11 +65,7 @@ class Parsing
             // Перебираем письма
             // $value --> письмо
             foreach ( $value['attachs'] as $key1 => $file ) {
-
-//                                H::h( $file['file'],0 );
-
-                $html = SHD::str_get_html( $file['file'] ); //H::h($html,0); exit;
-
+                $html = SHD::str_get_html( $file['file'] );
                 foreach ( $html->find( 'style, meta, link, title, comment' ) as $style ) {
                     $style->outertext = '';
                 }
@@ -80,116 +78,60 @@ class Parsing
 
                 if ( count( $html->find( 'table[bgcolor="#e8eaf6"]' ) ) ) {
                     foreach ( $html->find( 'table[bgcolor="#e8eaf6"]' ) as $item ) {
-
-
                         foreach ( $item->find( 'tr' ) as $key => $tr ) {
-
                             if ( !is_object( $tr ) ) {
                                 continue;
                             }
 
                             if ( $t = $tr->find( 'td[class=project-name]' ) ) {
                                 // Если нашли название проекта...
-//                                H::h( 'pr = ' . $key, 1);
+                                $this->tmp = $key;
+
                                 foreach ( $t as $k ) {
-
-                                    $tmp_array['project'] = trim( $k->innertext );
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                    $parent = $k->parent()->next_sibling(); // это tr
-//                                    H::h($parent->outertext, 3);
-
-//                                    if ( $n = $parent->find( 'table[align=center]' ) ) {
-
-                                    foreach ( $parent->find( 'table[align=center]' ) as $el ) {
-//                                            H::h(gettype($el), 3);
-                                        $tmp_array['details']['user'] = trim( $el->find( 'a.user-name-link', 0 )->plaintext );
-//
-                                        $tmp_array['details']['post'] = trim( str_replace( '/\s{2,}/', ' ',
-                                            $el->find( 'td.post-text', 0 )->innertext ) );
-//
-                                    }
-
-
-
-                                    if ( $parent->next_sibling()->find( 'table[align=center]' ) ) {
-                                        $parent = $parent->next_sibling();
-//                                            H::h($parent->outertext, 3);
-
-                                    }
-
-
-//                                    }
-                                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                    $tmp_array[$this->tmp]['project'] = trim( $k->innertext );
                                 }
                             }
-//                            else {
-//                                if ( $n = $tr->find( 'table[align=center]' ) ) {
-//                                    // Если нашли детали...
-//                                    H::h( 'dt = ' . $key, 1);
-//                                    foreach ( $n as $el ) {
-//                                        $tmp_array['project']['user'] = trim( $el->find( 'a.user-name-link',
-//                                            0 )->plaintext );
-//
-//                                        $tmp_array['project']['post'] = trim( str_replace( '/\s{2,}/', ' ',
-//                                            $el->find( 'td.post-text', 0 )->innertext ) );
-//                                    }
-//                                    unset ( $el );
-//                                }
-//
-//                            }
+                            else {
+                                if ( $n = $tr->find( 'table[align=center]' ) ) {
+                                    // Если нашли детали...
+                                    foreach ( $n as $el ) {
 
-                            if ( count( $tmp_array ) > 0 ) {
-                                $files[] = $tmp_array;
-                                $tmp_array = [ ];
+                                        $tmp_array1['user'] = trim( $el->find( 'a.user-name-link',
+                                            0 )->plaintext );
+
+                                        $tmp_array1['post'] = trim( str_replace( '/\s{2,}/', ' ',
+                                            $el->find( 'td.post-text', 0 )->innertext ) );
+
+                                    }
+
+                                    if ( count( $tmp_array1 ) > 0 ) {
+                                        $tmp_array[$this->tmp]['details'][$this->t] = $tmp_array1;
+                                    }
+                                    $tmp_array1 = [ ];
+                                    $this->t++;
+                                }
                             }
                         }
 
+                        if ( count( $tmp_array ) > 0 ) {
+
+                            $files[] = $tmp_array;
+                            $tmp_array = [ ];
+
+                        }
                     }
                 }
+                $this->t = 0;
             }
         }
 
         H::h( $files );
-//        $ar = [];
-//        foreach ( $files as $key => $el ) {
-//
-////            H::h( $key, 0);
-//            foreach ( $el as $a ) {
-//                if ( !is_array( $a ) ) {
-//                    $array['project'] = $a;
-////                    H::h( $a, 1);
-//                }
-//                else {
-//                    $array['details'] = $a;
-//                }
-//
-//                $ar[] = $array;
-//                $array = [];
-//            }
-//        }
-//
-//        H::h( $ar );
-
 
         exit;
 
         unset( $value );
         exit;
         return $html_array;
-    }
-
-    public function getParent( $el )
-    {
-
-        foreach ( $el->find( 'table[align=center]' ) as $el ) {
-//                                            H::h(gettype($el), 3);
-            $tmp_array['user'] = trim( $el->find( 'a.user-name-link', 0 )->plaintext );
-//
-            $tmp_array['post'] = trim( str_replace( '/\s{2,}/', ' ',
-                $el->find( 'td.post-text', 0 )->innertext ) );
-//
-        }
-        return $tmp_array;
     }
 
     /**
