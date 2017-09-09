@@ -18,7 +18,7 @@ class Parsing
     public $mail_array = [ ];
     public $el = [ ];
     public $tmp;
-    public $t = 0;
+    public $t;
 
     public function getUsersFromTable( $new_users )
     {
@@ -61,9 +61,10 @@ class Parsing
         $html_array = [ ];
         $files = [ ];
 
-        foreach ( $object as $key => $value ) {
+        foreach ( $object as $key0 => $value ) {
             // Перебираем письма
             // $value --> письмо
+
             foreach ( $value['attachs'] as $key1 => $file ) {
                 $html = SHD::str_get_html( $file['file'] );
                 foreach ( $html->find( 'style, meta, link, title, comment' ) as $style ) {
@@ -71,7 +72,7 @@ class Parsing
                 }
 
                 $str = $html->save();
-
+                $html->clear();
                 $html = SHD::str_get_html( $str );
 
 //                H::h( $html, 0);
@@ -90,46 +91,49 @@ class Parsing
                                 foreach ( $t as $k ) {
                                     $tmp_array[$this->tmp]['project'] = trim( $k->innertext );
                                 }
+                                unset( $k );
                             }
                             else {
-                                if ( $n = $tr->find( 'table[align=center]' ) ) {
+                                if ( $dtable = $tr->find( 'table[align=center]' ) ) {
                                     // Если нашли детали...
-                                    foreach ( $n as $el ) {
-
+                                    foreach ( $dtable as $el ) {
                                         $tmp_array1['user'] = trim( $el->find( 'a.user-name-link',
                                             0 )->plaintext );
 
                                         $tmp_array1['post'] = trim( str_replace( '/\s{2,}/', ' ',
                                             $el->find( 'td.post-text', 0 )->innertext ) );
-
                                     }
+                                    unset( $el );
 
                                     if ( count( $tmp_array1 ) > 0 ) {
                                         $tmp_array[$this->tmp]['details'][$this->t] = $tmp_array1;
+                                        $this->t++;
                                     }
                                     $tmp_array1 = [ ];
-                                    $this->t++;
                                 }
                             }
                         }
-
+                        unset( $tr );
+                        $this->t = 0;
                         if ( count( $tmp_array ) > 0 ) {
-
                             $files[] = $tmp_array;
                             $tmp_array = [ ];
-
                         }
                     }
                 }
-                $this->t = 0;
             }
+
+            $html_array[$key0]['id'] = $value['id'];
+            $html_array[$key0]['time'] = $value['time'];
+            $html_array[$key0]['date'] = $value['date'];
+
+            $html_array[$key0]['attachs'] = $files;
         }
-
-        H::h( $files );
-
-        exit;
-
         unset( $value );
+
+        //        H::h( $files );
+        $html->clear();
+//        H::h( $html_array );
         exit;
         return $html_array;
     }
