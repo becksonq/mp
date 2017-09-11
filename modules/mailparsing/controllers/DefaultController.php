@@ -52,38 +52,40 @@ class DefaultController extends Controller
 //        $parts = $parsing->getStrHtml( $session['messages'] );
 
         $html_array = $parsing->getHtmlArray( $session['messages'] );
-//        $html_array = $parsing->getHtmlArray( $parts );
-        unset( $parsing ); // Удаляем экземляр
 
         if ( count( $html_array ) > 0 ) {
-            $detales = new Parsing();
-            $detales->getDetales( $html_array );
+//            $session->remove( 'messages' );
+            $session['htmls'] = $html_array;
         }
+        // TODO: действие если массив пустой...
 
-        // Получаем массив уникальных юзеров
-        if ( isset( $detales ) ) {
-            $users = $detales->getUsersArray( $detales );
-            $u = $detales->getUsersFromTable( $users);
-        }
-        
-        
-        
+//
+//        // Получаем массив уникальных юзеров
+//        if ( isset( $detales ) ) {
+//            $users = $detales->getUsersArray( $detales );
+//            $u = $detales->getUsersFromTable( $users);
+//        }
 
-
-
-        print '<pre>';
-        print_r($users);
-        print_r( $u );
-        print '</pre>';
-
-
-//        exit;
 
 //        }
 
 //        return $this->render( 'parsing', [
 //            'parts' => $parts
 //        ] );
+
+        return $this->render( 'index', [
+            'message' => 2,
+            'html'    => $html_array
+        ] );
+    }
+
+    public function actionWriteDataToTable()
+    {
+        $session = Yii::$app->session;
+        $session->open();
+
+        $parsing = new Parsing();
+        $parsing->getUsersArray( $session['htmls'] );
     }
 
 }
