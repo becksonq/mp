@@ -6,7 +6,6 @@ use yii;
 use yii\web\Controller;
 use app\modules\mailparsing\models\GetMail;
 use app\modules\mailparsing\models\Parsing;
-use darkdrim\simplehtmldom\SimpleHTMLDom as SHD;
 
 /**
  * Default controller for the `mailparsing` module
@@ -48,30 +47,14 @@ class DefaultController extends Controller
         $session = Yii::$app->session;
         $session->open();
 
-        $parsing = new Parsing(); //print count($session['messages']);
-//        $parts = $parsing->getStrHtml( $session['messages'] );
+        $parsing = new Parsing();
 
         $html_array = $parsing->getHtmlArray( $session['messages'] );
 
         if ( count( $html_array ) > 0 ) {
-//            $session->remove( 'messages' );
             $session['htmls'] = $html_array;
         }
         // TODO: действие если массив пустой...
-
-//
-//        // Получаем массив уникальных юзеров
-//        if ( isset( $detales ) ) {
-//            $users = $detales->getUsersArray( $detales );
-//            $u = $detales->getUsersFromTable( $users);
-//        }
-
-
-//        }
-
-//        return $this->render( 'parsing', [
-//            'parts' => $parts
-//        ] );
 
         return $this->render( 'index', [
             'message' => 2,
@@ -85,7 +68,22 @@ class DefaultController extends Controller
         $session->open();
 
         $parsing = new Parsing();
-        $parsing->getUsersArray( $session['htmls'] );
+        $parsing->whiteDataToTable( $session['htmls'] );
+
+        $session['ms'] = $parsing;
+        // TODO:
+        return $this->render( 'index', [
+            'message' => 3
+        ] );
+    }
+
+    public function actionViewStat()
+    {
+        $session = Yii::$app->session;
+        $session->open();
+        return $this->render( 'index', [
+            'ms' => $session['ms']
+        ] );
     }
 
 }

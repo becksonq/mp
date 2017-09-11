@@ -22,6 +22,7 @@ class Parsing
     public $el = [ ];
     public $tmp;
     public $t;
+    public $messages;
 
     /**
      * @return array
@@ -69,16 +70,13 @@ class Parsing
      */
     public function getHtmlArray( $object )
     {
-        // Получаем массив $session['messages']...
-        //        H::h( gettype( $object ), 0 ); // $object -> array
 
         $html_array = [ ];
         $files = [ ];
 
         foreach ( $object as $key0 => $value ) {
-            // Перебираем письма
-            // $value --> письмо
 
+            // Перебираем письма
             foreach ( $value['attachs'] as $key1 => $file ) {
                 $html = SHD::str_get_html( $file['file'] );
                 foreach ( $html->find( 'style, meta, link, title, comment' ) as $style ) {
@@ -134,8 +132,10 @@ class Parsing
                             $tmp_array = [ ];
                         }
                     }
+                    unset ( $item );
                 }
             }
+            unset( $file );
 
             $html_array[$key0]['id'] = $value['id'];
             $html_array[$key0]['time'] = $value['time']; //H::h($html_array[$key0]['time'],3);
@@ -147,23 +147,20 @@ class Parsing
         }
         unset( $value );
 
-        //        H::h( $files );
         $html->clear();
-//        H::h( $html_array );
-//        exit;
         return $html_array;
     }
 
     /**
-     * Получаем массив уникальных юзеров
+     * Функция записи данных в базу
      *
      * @param $object
      *
      * @return array
      */
-    public function getUsersArray( $object )
+    public function whiteDataToTable( $object )
     {
-        $users = [ ];
+        $messages = [ ];
         // Получаем пользователей которые уже есть в базе...
         $old_users = $this->getUsersFromTable();
 
@@ -171,7 +168,7 @@ class Parsing
             foreach ( $value['attachs'] as $key => $val1 ) {
 
                 // Обрабатываем проекты...
-                foreach ( $val1 as $key1 => $val2 ) {
+                foreach ( $val1 as $val2 ) {
                     // Получаем названия проектов из таблицы project
                     $old_project = $this->getProjectFromTable();
                     foreach ( $old_project as &$el ) {
@@ -188,24 +185,25 @@ class Parsing
 
                         // Добавляем проект в массив...
                         array_push( $old_project, $tmp_project );
+                        // Добавляем проект в массив статистики...
+                        $this->messages['new-project'][] = $val2['project'];
                     }
 
-                    foreach ( $val2 as $key2 => $details ) {
+                    foreach ( $val2 as $details ) {
 
                         // Обрабатываем юзеров
                         if ( is_array( $details ) ) {
-                            foreach ( $details as $val4 ) {
+                            foreach ( $details as $key4 => $val4 ) {
 
                                 // Удаляем пробелы из строки и получаем пользователя из письма для сравнения
                                 $user_tmp = str_replace( " ", "", $val4['user'] );
+                                $u = explode( ' ', $val4['user'] );
 
                                 // Сравниваем юзеров для нахождения новых
                                 if ( !in_array( $user_tmp, $old_users ) ) {
                                     // Если находим нового юзера, то пишем его в таблицу...
                                     $profile = new Profile();
                                     $user = new User();
-
-                                    $u = explode( ' ', $val4['user'] );
 
                                     // Данные для таблицы user
                                     $user->username = $u[0];
@@ -235,75 +233,40 @@ class Parsing
 
                                     // Добавляем пользователя в массив...
                                     array_push( $old_users, $user_tmp );
-                                } else {
+                                    $this->messages['new-user'][] = $val4['user'];
+                                }
+                                else {
 
                                     // Если новых юзеров нет, пишем посты старых в таблицу post...
                                     $post = new Post();
                                     $post->body = $val4['post'];
 
                                     // Узнаем id юзера...
-                                    $query = new User();
-                                    $query = Project::find()->select( 'id' )->where( [ 'name' => $val2['project'] ] )->one();
-
-                                    $post->author_id = $user->id; H::h('a', 3);
-//                                    $post->project_id = $query->id;
+                                    $pr = Profile::find()->select( 'user_id' )->where( [ 'firstname' => $u[1] ] )->one();
+                                    $post->author_id = $pr->user_id;
+                                    // Запрос в project для id проекта...
+                                    $project = Project::find()->select( 'id' )->where( [ 'name' => $val2['project'] ] )->one();
+                                    $post->project_id = $project->id;
 
                                     $post->created_at = time();
                                     $post->updated_at = time();
                                     $post->save();
-                                }
 
+                                    $this->messages['posts'][] = $key4;
+                                }
                             }
+                            unset( $val4 );
                         }
                     }
+                    unset( $details );
                 }
-
+                unset( $val2 );
             }
             unset( $val );
         }
         unset( $value );
 
-        return $users;
-    }
-
-    public function addNewUser( $user )
-    {
-
-    }
-
-    /**
-     * Получаем детали
-     *
-     * @param $object
-     *
-     * @return array
-     */
-    public function getDetales( $object )
-    {
-        $el = [ ];
-
-        foreach ( $object as $key => $val ) {
-
-            $html = SHD::str_get_html( $val );
-            //            $this->el[] = $html->find( 'table' );
-
-            $el[$key]['project-name'] = $html->find( 'td.project-name' );
-            $el[$key]['user-name-link'] = $html->find( 'a.user-name-link' );
-            $el[$key]['post-text'] = $html->find( 'td.post-text' );
-
-        }
-        unset( $val );
-
-        foreach ( $el as $keys => &$val ) {
-            foreach ( $val['user-name-link'] as $key => &$v ) {
-                $user = $v->innertext;
-                $v = $user;
-            }
-        }
-        unset( $val );
-
-        $this->el = $el;
-        return $this->el;
+        return $this->messages;
     }
 
 }

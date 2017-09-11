@@ -17,14 +17,12 @@ class GetMail
     public $mail_password = "LftimVjkjlt;m";
     public $mail_imap = "{imap.yandex.ru:993/imap/ssl}";
     public $mail_filetypes = [ "RFC822" ]; // Список учитываемых типов файлов
-//    public $connection;
-//    public $message_num;
-//    public $message_header; // Заголовок письма
-//    public $msg_structure;
-//    public $parts;
-//    public $mails_data = [ ]; // Массив для вложений
 
-
+    /**
+     * Функция получения писем
+     * 
+     * @return array
+     */
     public function getMessages()
     {
         $mails_data = [ ];
@@ -88,31 +86,26 @@ class GetMail
             }
         }
 
-
         $this->stopConnection( $connection );
         return $mails_data;
     }
 
-    public function addPartToArray( $obj, $partno, & $part_array )
+    /**
+     * @param $obj
+     * @param $partno
+     * @param $part_array
+     */
+    public function addPartToArray( $obj, $partno, &$part_array )
     {
-        $prefix = '';
-
         $part_array[] = [ 'part_number' => $partno, 'part_object' => $obj ];
 
-//        H::h( $partno, 0);
+        if ( $obj->type == 2 ) {
 
-        if ( $obj->type == 2 ) { // Check to see if the part is an attached email message, as in the RFC-822 type
-
-//            H::h( $partno, 0 );
-
-            if ( count( $obj->parts ) > 0 ) {    // Check to see if the email has parts
+            if ( count( $obj->parts ) > 0 ) {
                 foreach ( $obj->parts as $count => $part ) {
 
-                    // Iterate here again to compensate for the broken way that imap_fetchbody() handles attachments
                     if ( count( $part->parts ) > 0 ) {
                         foreach ( $part->parts as $count2 => $part2 ) {
-//                            H::h( $part2 );
-//                            H::h(  "." . ( $count2 + 1 ), 0 );
 
                             if ( ( $count2 + 1 ) == 2 ) {
                                 $this->addPartToArray( $part2, $partno . "." . ( $count2 + 1 ), $part_array );
@@ -120,25 +113,16 @@ class GetMail
 
                         }
                     }
-//                    else {    // Attached email does not have a seperate mime attachment for text
-//                        $part_array[] = array( 'part_number' => $partno . '.' . ( $count + 1 ), 'part_object' => $obj );
-//                    }
                 }
             }
-//            else {    // Not sure if this is possible
-//                $part_array[] = [ 'part_number' => $prefix . '.1', 'part_object' => $obj ];
-//            }
         }
-//        else {    // If there are more sub-parts, expand them out.
-//            if ( count( $obj->parts ) > 0 ) {
-//                foreach ( $obj->parts as $count => $p ) {
-//                    $this->addPartToArray( $p, $partno . "." . ( $count + 1 ), $part_array );
-//                }
-//            }
-//        }
     }
 
-
+    /**
+     * @param $encoding
+     * @param $msg_body
+     * @return string
+     */
     private function structureEncoding( $encoding, $msg_body )
     {
 
@@ -188,7 +172,7 @@ class GetMail
 
             if ( !$this->checkUTF8( $m->charset ) ) {
 
-                $title .= convert_to_utf8( $m->charset, $m->text ); //print $title; exit;
+                $title .= convert_to_utf8( $m->charset, $m->text );
             }
             else {
 
@@ -240,9 +224,7 @@ class GetMail
             echo( "Ошибка соединения с почтой - " . $this->mail_login );
             exit;
         }
-//        else {
         return $connection;
-//        }
     }
 
     /**
