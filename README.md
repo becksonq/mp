@@ -5,6 +5,8 @@ Mail parsing project
 
 Задание:
 
+https://docs.google.com/document/d/1miCh5NpEtv_QTI5fJqx0R90O0SXP3lvc6xFcDkqVJZ8/edit#
+
 Mail parsing
 Материалы
 Projects-production-18.11.2016.sql - существующая БД с частью записей
